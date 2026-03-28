@@ -2,123 +2,143 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jasa Website UMKM</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
+
     @keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
     .animate-zoom {
-    animation: zoomIn 0.25s ease;
+      animation: zoomIn 0.25s ease;
+    }
+
+    /* Fix modal image on small screens */
+    #imageModal img {
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    /* Slider: pastikan overflow tersembunyi di HP */
+    #slider-wono {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    #slider-wono img {
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    /* Tombol modal navigasi lebih besar di HP */
+    @media (max-width: 640px) {
+      .modal-prev, .modal-next {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+      }
     }
   </style>
 </head>
 
 <body class="bg-slate-50 text-slate-900">
 
-<header class="flex flex-col md:flex-row justify-between items-center gap-4 px-8 py-6 max-w-7xl mx-auto">
-  <div>
+<!-- ===== HEADER ===== -->
+<header class="flex flex-col sm:flex-row justify-between items-center gap-3 px-4 sm:px-6 md:px-8 py-4 sm:py-6 max-w-7xl mx-auto">
+  <div class="text-center sm:text-left">
     <h1 class="text-xl font-semibold">Nadhif Dev</h1>
     <p class="text-sm text-slate-500 mt-1">Solusi website profesional untuk UMKM, toko, dan jasa lokal.</p>
   </div>
-  <a href="https://wa.me/628975054804" class="inline-flex items-center justify-center bg-slate-900 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-lg hover:bg-slate-800 transition ">
+  <a href="https://wa.me/628975054804"
+     class="inline-flex items-center justify-center bg-slate-900 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl text-sm font-semibold shadow-lg hover:bg-slate-800 transition w-full sm:w-auto">
     Konsultasi via WA
   </a>
 </header>
 
+<!-- ===== HERO ===== -->
 <section class="relative overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-br from-sky-100 via-white to-rose-100 opacity-80"></div>
-  <div class="relative max-w-6xl mx-auto px-8 py-24">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700 mb-4">Website UMKM siap pakai</p>
-        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 mb-6">
+  <div class="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-24">
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+
+      <!-- Teks kiri -->
+      <div class="text-center md:text-left">
+        <p class="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] sm:tracking-[0.3em] text-sky-700 mb-3 sm:mb-4">
+          Website UMKM siap pakai
+        </p>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 mb-4 sm:mb-6">
           Bangun reputasi usaha Anda dengan website modern dan mudah dikelola
         </h1>
-        <p class="text-lg text-slate-600 mb-8">
+        <p class="text-base sm:text-lg text-slate-600 mb-6 sm:mb-8">
           Kami membantu usaha kuliner, toko online, salon, dan layanan lokal tampil lebih profesional. Satu website, banyak pelanggan baru.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4">
-          <a href="https://wa.me/628975054804?text=Saya%20ingin%20konsultasi%20website%20UMKM" class="inline-flex items-center justify-center bg-slate-900 text-white px-7 py-3 rounded-xl text-sm font-semibold shadow-lg hover:bg-slate-800 transition">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
+          <a href="https://wa.me/628975054804?text=Saya%20ingin%20konsultasi%20website%20UMKM"
+             class="inline-flex items-center justify-center bg-slate-900 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-lg hover:bg-slate-800 transition w-full sm:w-auto">
             Konsultasi Gratis
           </a>
-          <a href="#portfolio" class="inline-flex items-center justify-center border border-slate-300 bg-white px-7 py-3 rounded-xl text-sm font-semibold text-slate-900 hover:bg-slate-100 transition">
+          <a href="#portfolio"
+             class="inline-flex items-center justify-center border border-slate-300 bg-white px-6 py-3 rounded-xl text-sm font-semibold text-slate-900 hover:bg-slate-100 transition w-full sm:w-auto">
             Lihat Contoh Website
           </a>
         </div>
       </div>
-      <div class="space-y-4">
-        <div class="rounded-[32px] bg-white p-8 shadow-lg border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition duration-300">
-          <h2 class="text-xl font-semibold mb-3 ">Apa yang sudah kami kerjakan</h2>
-          <p class="text-slate-600 leading-relaxed">
+
+      <!-- Card kanan -->
+      <div class="space-y-4 mt-6 md:mt-0">
+        <div class="rounded-2xl sm:rounded-[32px] bg-white p-6 sm:p-8 shadow-lg border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition duration-300">
+          <h2 class="text-lg sm:text-xl font-semibold mb-3">Apa yang sudah kami kerjakan</h2>
+          <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
             Website ini adalah contoh landing page yang kami desain untuk mempercepat penjualan UMKM. Klien kami meliputi toko makanan, jasa bengkel, dan usaha fashion dengan website yang lebih mudah dicari dan lebih berkesan.
           </p>
         </div>
-        <div class="grid gap-4">
-          <div class="rounded-3xl bg-sky-50 p-6 hover:shadow-lg hover:-translate-y-1 transition duration-300">
-            <h3 class="font-semibold mb-2">Website Toko Makanan</h3>
-            <p class="text-sm text-slate-600">Order online, menu digital, dan testimoni pelanggan.</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-2xl sm:rounded-3xl bg-sky-50 p-4 sm:p-6 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+            <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Website Toko Makanan</h3>
+            <p class="text-xs sm:text-sm text-slate-600">Order online, menu digital, dan testimoni pelanggan.</p>
           </div>
-          <div class="rounded-3xl bg-rose-50 p-6 hover:shadow-lg hover:-translate-y-1 transition duration-300">
-            <h3 class="font-semibold mb-2">Website Jasa Lokal</h3>
-            <p class="text-sm text-slate-600">Portofolio layanan, harga paket, dan booking langsung.</p>
+          <div class="rounded-2xl sm:rounded-3xl bg-rose-50 p-4 sm:p-6 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+            <h3 class="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">Website Jasa Lokal</h3>
+            <p class="text-xs sm:text-sm text-slate-600">Portofolio layanan, harga paket, dan booking langsung.</p>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<section class="py-20 max-w-6xl mx-auto px-8">
-  <div class="grid md:grid-cols-3 gap-6">
+<!-- ===== FITUR 3 KOLOM ===== -->
+<section class="py-12 sm:py-16 md:py-20 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
 
-    <!-- CARD 1 -->
-    <div class="group rounded-3xl bg-white p-8 border border-slate-200 
-                shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
-
-      <!-- ICON -->
-      <div class="w-12 h-12 flex items-center justify-center rounded-xl 
-                  bg-sky-100 text-sky-600 mb-5 
-                  group-hover:scale-110 transition">
+    <div class="group rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-sky-100 text-sky-600 mb-4 sm:mb-5 group-hover:scale-110 transition text-xl">
         💼
       </div>
-
-      <h3 class="font-semibold text-lg mb-3">Lebih Profesional</h3>
+      <h3 class="font-semibold text-base sm:text-lg mb-2 sm:mb-3">Lebih Profesional</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         Desain rapi, struktur jelas, dan citra brand yang meningkat untuk pelanggan.
       </p>
     </div>
 
-    <!-- CARD 2 -->
-    <div class="group rounded-3xl bg-white p-8 border border-slate-200 
-                shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
-
-      <div class="w-12 h-12 flex items-center justify-center rounded-xl 
-                  bg-green-100 text-green-600 mb-5 
-                  group-hover:scale-110 transition">
+    <div class="group rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-green-100 text-green-600 mb-4 sm:mb-5 group-hover:scale-110 transition text-xl">
         📱
       </div>
-
-      <h3 class="font-semibold text-lg mb-3">Cepat Diakses</h3>
+      <h3 class="font-semibold text-base sm:text-lg mb-2 sm:mb-3">Cepat Diakses</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         Website responsif yang tampil baik di HP, tablet, dan desktop.
       </p>
     </div>
 
-    <!-- CARD 3 -->
-    <div class="group rounded-3xl bg-white p-8 border border-slate-200 
-                shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
-
-      <div class="w-12 h-12 flex items-center justify-center rounded-xl 
-                  bg-rose-100 text-rose-600 mb-5 
-                  group-hover:scale-110 transition">
+    <div class="group rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl bg-rose-100 text-rose-600 mb-4 sm:mb-5 group-hover:scale-110 transition text-xl">
         📈
       </div>
-
-      <h3 class="font-semibold text-lg mb-3">Fokus Penjualan</h3>
+      <h3 class="font-semibold text-base sm:text-lg mb-2 sm:mb-3">Fokus Penjualan</h3>
       <p class="text-slate-600 text-sm leading-relaxed">
         Pengunjung diarahkan ke WhatsApp untuk pesan dan konsultasi langsung.
       </p>
@@ -127,172 +147,133 @@
   </div>
 </section>
 
-<section id="portfolio" class="py-20 bg-slate-100">
-  <div class="max-w-6xl mx-auto px-8">
-    
-    <div class="text-center mb-12">
-      <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Portfolio</p>
-      <h2 class="text-3xl font-bold text-slate-900">Website yang sudah kami kerjakan</h2>
-      <p class="max-w-2xl mx-auto text-slate-600 mt-4">
+<!-- ===== PORTFOLIO ===== -->
+<section id="portfolio" class="py-12 sm:py-16 md:py-20 bg-slate-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+
+    <div class="text-center mb-8 sm:mb-12">
+      <p class="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 mb-2 sm:mb-3">Portfolio</p>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Website yang sudah kami kerjakan</h2>
+      <p class="max-w-2xl mx-auto text-slate-600 mt-3 sm:mt-4 text-sm sm:text-base">
         Berikut beberapa website real yang sudah digunakan oleh client
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6">
 
       <!-- MLB SUPPLY -->
-    <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
-
-    <!-- IMAGE (khusus modal) -->
-    <div class="overflow-hidden">
-        <img src="mlb.jpg" 
-            class="w-full h-52 object-cover cursor-pointer"
-            onclick="openModal(this.src, ['mlb.jpg'])">
-    </div>
-
-    <!-- CONTENT -->
-    <div class="p-6">
-        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-        Real Project
-        </span>
-
-        <h3 class="font-semibold text-xl mt-2 mb-2">MLB Supply</h3>
-
-        <p class="text-sm text-slate-600 mb-4">
-        Website toko dengan katalog produk untuk meningkatkan kepercayaan customer
-        </p>
-
-        <!-- BUTTON (khusus ke website) -->
-        <a href="https://mlbsupply.id/" target="_blank"
-        class="text-xs text-sky-600 font-medium">
-        Lihat Website →
-        </a>
-    </div>
-
-    </div>
+      <div class="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <div class="overflow-hidden">
+          <img src="mlb.jpg"
+               class="w-full h-44 sm:h-52 object-cover cursor-pointer"
+               onclick="openModal(this.src, ['mlb.jpg'])">
+        </div>
+        <div class="p-5 sm:p-6">
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Real Project</span>
+          <h3 class="font-semibold text-lg sm:text-xl mt-2 mb-2">MLB Supply</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Website toko dengan katalog produk untuk meningkatkan kepercayaan customer
+          </p>
+          <a href="https://mlbsupply.id/" target="_blank" class="text-xs text-sky-600 font-medium">
+            Lihat Website →
+          </a>
+        </div>
+      </div>
 
       <!-- UMKM WONOSUNYO -->
-    <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
-    
-    <!-- SLIDER -->
-    <div class="relative overflow-hidden">
-        
-        <div class="flex transition-transform duration-500" id="slider-wono">
+      <div class="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
+        <div class="relative overflow-hidden">
+          <div class="flex transition-transform duration-500" id="slider-wono">
             <img src="wono1.jpg"
-                class="w-full h-52 object-cover flex-shrink-0 cursor-pointer"
-                onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
-
+                 class="w-full h-44 sm:h-52 object-cover flex-shrink-0 cursor-pointer"
+                 onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
             <img src="wono2.jpg"
-                class="w-full h-52 object-cover flex-shrink-0 cursor-pointer"
-                onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
-
+                 class="w-full h-44 sm:h-52 object-cover flex-shrink-0 cursor-pointer"
+                 onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
             <img src="wono3.jpg"
-                class="w-full h-52 object-cover flex-shrink-0 cursor-pointer"
-                onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
+                 class="w-full h-44 sm:h-52 object-cover flex-shrink-0 cursor-pointer"
+                 onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
+          </div>
+          <button onclick="prevSlide()"
+                  class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 w-8 h-8 flex items-center justify-center rounded-full shadow text-lg font-bold">
+            ‹
+          </button>
+          <button onclick="nextSlide()"
+                  class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 w-8 h-8 flex items-center justify-center rounded-full shadow text-lg font-bold">
+            ›
+          </button>
         </div>
+        <div class="p-5 sm:p-6">
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Real Project</span>
+          <h3 class="font-semibold text-lg sm:text-xl mt-2 mb-2">UMKM Wonosunyo</h3>
+          <p class="text-sm text-slate-600 mb-2">
+            Website lengkap dengan halaman pembeli, kasir, dan admin
+          </p>
+          <a href="https://umkm-wonosunyo.engineering-umsura.id/" target="_blank"
+             class="text-xs text-sky-600 font-medium">
+            Lihat Website →
+          </a>
+        </div>
+      </div>
 
-        <!-- BUTTON -->
-        <button onclick="prevSlide()" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white px-2 py-1 rounded shadow">
-        ‹
-        </button>
-        <button onclick="nextSlide()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white px-2 py-1 rounded shadow">
-        ›
-        </button>
-
-    </div>
-
-    <!-- CONTENT -->
-    <div class="p-6">
-        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-        Real Project
-        </span>
-        <h3 class="font-semibold text-xl mt-2 mb-2">UMKM Wonosunyo</h3>
-        <p class="text-sm text-slate-600 mb-2">
-        Website lengkap dengan halaman pembeli, kasir, dan admin
-        </p>
-        <a href="https://umkm-wonosunyo.engineering-umsura.id/" target="_blank"
-        class="text-xs text-sky-600 font-medium">
-        Lihat Website →
-        </a>
-    </div>
-
-    </div>
-
-    <!-- MRSOMET BARBERSHOP -->
-    <div class="group bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300">
-
-    <!-- IMAGE -->
-    <div class="overflow-hidden">
-        <img src="mrsomet-preview.png" 
-            class="w-full h-52 object-cover cursor-pointer"
-            onclick="openModal(this.src, ['mrsomet-preview.png'])">
-    </div>
-
-    <!-- CONTENT -->
-    <div class="p-6">
-        <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
-        Real Project
-        </span>
-
-        <h3 class="font-semibold text-xl mt-2 mb-2">Mrsomet Barbershop</h3>
-
-        <p class="text-sm text-slate-600 mb-4">
-        Website barbershop modern untuk meningkatkan branding dan booking pelanggan.
-        </p>
-
-        <a href="https://mrsomet.vercel.app/" target="_blank"
-        class="text-xs text-sky-600 font-medium">
-        Lihat Website →
-        </a>
-    </div>
-
-    </div>
+      <!-- MRSOMET BARBERSHOP -->
+      <div class="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 sm:col-span-2 md:col-span-1">
+        <div class="overflow-hidden">
+          <img src="mrsomet-preview.png"
+               class="w-full h-44 sm:h-52 object-cover cursor-pointer"
+               onclick="openModal(this.src, ['mrsomet-preview.png'])">
+        </div>
+        <div class="p-5 sm:p-6">
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Real Project</span>
+          <h3 class="font-semibold text-lg sm:text-xl mt-2 mb-2">Mrsomet Barbershop</h3>
+          <p class="text-sm text-slate-600 mb-4">
+            Website barbershop modern untuk meningkatkan branding dan booking pelanggan.
+          </p>
+          <a href="https://mrsomet.vercel.app/" target="_blank"
+             class="text-xs text-sky-600 font-medium">
+            Lihat Website →
+          </a>
+        </div>
+      </div>
 
     </div>
   </div>
 </section>
 
-<section class="py-20 max-w-6xl mx-auto px-8">
-  <div class="text-center mb-12">
-    <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Paket Harga</p>
-    <h2 class="text-3xl font-bold text-slate-900">Pilih paket yang sesuai usaha</h2>
+<!-- ===== HARGA ===== -->
+<section class="py-12 sm:py-16 md:py-20 max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+  <div class="text-center mb-8 sm:mb-12">
+    <p class="text-xs sm:text-sm uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 mb-2 sm:mb-3">Paket Harga</p>
+    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Pilih paket yang sesuai usaha</h2>
   </div>
 
-  <!-- GRID -->
-  <div class="grid md:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
 
     <!-- BASIC -->
-    <div class="rounded-3xl bg-white p-8 shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition duration-300">
-      <h3 class="font-semibold text-xl mb-3">Basic</h3>
+    <div class="rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition duration-300">
+      <h3 class="font-semibold text-xl mb-2 sm:mb-3">Basic</h3>
       <p class="text-2xl font-bold text-slate-900 mb-2">Rp 500.000</p>
-      <p class="text-sm text-slate-500 mb-4">
-        Cocok untuk usaha kecil yang baru mulai online
-      </p>
-
+      <p class="text-sm text-slate-500 mb-4">Cocok untuk usaha kecil yang baru mulai online</p>
       <ul class="text-sm text-slate-600 space-y-2 mb-6">
         <li>✔️ 3–5 halaman website</li>
         <li>✔️ Desain clean & rapi</li>
         <li>✔️ Responsif semua device</li>
         <li>✔️ Integrasi WhatsApp</li>
       </ul>
-
-      <a href="#" class="inline-flex w-full justify-center bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">
+      <a href="https://wa.me/628975054804?text=Saya%20tertarik%20Paket%20Basic"
+         class="inline-flex w-full justify-center bg-slate-900 text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-slate-800 transition">
         Pilih Paket Basic
       </a>
     </div>
 
     <!-- STANDARD -->
-    <div class="rounded-3xl bg-slate-900 text-white p-8 shadow-xl border border-slate-800 relative hover:-translate-y-1 transition duration-300">
-      <span class="absolute -top-3 right-6 bg-yellow-400 text-black text-xs px-3 py-1 rounded-full shadow font-semibold">
+    <div class="rounded-2xl sm:rounded-3xl bg-slate-900 text-white p-6 sm:p-8 shadow-xl border border-slate-800 relative hover:-translate-y-1 transition duration-300">
+      <span class="absolute -top-3 right-5 sm:right-6 bg-yellow-400 text-black text-xs px-3 py-1 rounded-full shadow font-semibold">
         Paling Populer
       </span>
-
-      <h3 class="font-semibold text-xl mb-3">Standard</h3>
+      <h3 class="font-semibold text-xl mb-2 sm:mb-3">Standard</h3>
       <p class="text-2xl font-bold mb-2">Rp 1.000.000</p>
-      <p class="text-sm text-slate-300 mb-4">
-        Pilihan terbaik untuk meningkatkan kepercayaan & penjualan
-      </p>
-
+      <p class="text-sm text-slate-300 mb-4">Pilihan terbaik untuk meningkatkan kepercayaan & penjualan</p>
       <ul class="text-sm text-slate-200 space-y-2 mb-6">
         <li>🔥 Desain lebih profesional & menarik</li>
         <li>📱 Fully responsive & modern UI</li>
@@ -300,24 +281,20 @@
         <li>📞 Form kontak + WhatsApp</li>
         <li>⚡ Loading cepat</li>
       </ul>
-
-      <a href="#" class="inline-flex w-full justify-center bg-white text-slate-900 px-4 py-3 rounded-xl text-sm font-semibold hover:bg-slate-100 transition">
+      <a href="https://wa.me/628975054804?text=Saya%20tertarik%20Paket%20Standard"
+         class="inline-flex w-full justify-center bg-white text-slate-900 px-4 py-3 rounded-xl text-sm font-semibold hover:bg-slate-100 transition">
         Pilih Paket Standard
       </a>
     </div>
 
     <!-- PRO -->
-    <div class="rounded-3xl bg-white p-8 shadow-sm border-2 border-sky-500 relative hover:shadow-xl hover:-translate-y-1 transition duration-300">
-      <span class="absolute -top-3 right-6 bg-sky-500 text-white text-xs px-3 py-1 rounded-full shadow">
+    <div class="rounded-2xl sm:rounded-3xl bg-white p-6 sm:p-8 shadow-sm border-2 border-sky-500 relative hover:shadow-xl hover:-translate-y-1 transition duration-300">
+      <span class="absolute -top-3 right-5 sm:right-6 bg-sky-500 text-white text-xs px-3 py-1 rounded-full shadow">
         Eksklusif
       </span>
-
-      <h3 class="font-semibold text-xl mb-3">Pro</h3>
+      <h3 class="font-semibold text-xl mb-2 sm:mb-3">Pro</h3>
       <p class="text-2xl font-bold text-slate-900 mb-2">Rp 2.500.000</p>
-      <p class="text-sm text-slate-500 mb-4">
-        Cocok untuk bisnis yang ingin tampil maksimal & siap scale
-      </p>
-
+      <p class="text-sm text-slate-500 mb-4">Cocok untuk bisnis yang ingin tampil maksimal & siap scale</p>
       <ul class="text-sm text-slate-600 space-y-2 mb-6">
         <li>✨ Desain custom</li>
         <li>⚡ Optimasi performa</li>
@@ -325,124 +302,119 @@
         <li>📊 Analytics</li>
         <li>🔧 Support fleksibel</li>
       </ul>
-
-      <a href="#" class="inline-flex w-full justify-center bg-sky-500 text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-sky-600 transition">
+      <a href="https://wa.me/628975054804?text=Saya%20tertarik%20Paket%20Pro"
+         class="inline-flex w-full justify-center bg-sky-500 text-white px-4 py-3 rounded-xl text-sm font-semibold hover:bg-sky-600 transition">
         Pilih Paket Pro
       </a>
     </div>
 
   </div>
 
-  <p class="mt-6 text-sm text-slate-500 text-center">
+  <p class="mt-5 sm:mt-6 text-sm text-slate-500 text-center">
     *Harga dapat disesuaikan berdasarkan kebutuhan desain dan fitur tambahan.
   </p>
 </section>
 
-<section class="py-20 bg-slate-900 text-white">
-  <div class="max-w-5xl mx-auto px-8 text-center">
-    <h2 class="text-3xl font-bold mb-4">Siap meningkatkan penjualan usaha Anda?</h2>
-    <p class="text-slate-300 mb-8">Hubungi kami sekarang untuk diskusi gratis & proposal website yang sesuai dengan bisnis Anda.</p>
-    <a href="https://wa.me/628975054804?text=Halo%20Admin,%20saya%20ingin%20membuat%20website%20UMKM" class="inline-flex items-center justify-center bg-white text-slate-900 px-8 py-3 rounded-xl text-sm font-semibold hover:bg-slate-100 transition">
+<!-- ===== CTA ===== -->
+<section class="py-14 sm:py-20 bg-slate-900 text-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-8 text-center">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Siap meningkatkan penjualan usaha Anda?</h2>
+    <p class="text-slate-300 mb-6 sm:mb-8 text-sm sm:text-base">
+      Hubungi kami sekarang untuk diskusi gratis & proposal website yang sesuai dengan bisnis Anda.
+    </p>
+    <a href="https://wa.me/628975054804?text=Halo%20Admin,%20saya%20ingin%20membuat%20website%20UMKM"
+       class="inline-flex items-center justify-center bg-white text-slate-900 px-7 sm:px-8 py-3 rounded-xl text-sm font-semibold hover:bg-slate-100 transition w-full sm:w-auto max-w-xs mx-auto">
       Hubungi via WhatsApp
     </a>
   </div>
 </section>
 
-<footer class="py-8 text-center text-sm text-slate-500">
+<!-- ===== FOOTER ===== -->
+<footer class="py-6 sm:py-8 text-center text-xs sm:text-sm text-slate-500 px-4">
   © 2026 Nadhif Web. Website portofolio layanan pembuatan situs UMKM.
 </footer>
 
-<!-- IMAGE MODAL SLIDER -->
-<div id="imageModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
-  
-  <!-- overlay -->
+<!-- ===== IMAGE MODAL ===== -->
+<div id="imageModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 px-4">
   <div class="absolute inset-0" onclick="closeModal()"></div>
 
-  <!-- tombol kiri -->
-    <button onclick="prevModal()" 
-            class="modal-prev absolute left-6 text-white text-3xl z-50">
+  <button onclick="prevModal()"
+          class="modal-prev absolute left-2 sm:left-6 text-white text-3xl z-50 bg-black/30 px-3 py-2 rounded-full">
     ‹
-    </button>
-
-  <!-- gambar -->
-  <img id="modalImage" 
-       class="max-w-4xl w-full mx-4 rounded-xl shadow-2xl animate-zoom z-40">
-
-  <!-- tombol kanan -->
-<button onclick="nextModal()" 
-        class="modal-next absolute right-6 text-white text-3xl z-50">
-  ›
-</button>
-
-  <!-- close -->
-  <button onclick="closeModal()" 
-          class="absolute top-6 right-6 text-white text-3xl font-bold z-50">
-    ✕
   </button>
 
+  <img id="modalImage"
+       class="max-w-full sm:max-w-4xl w-full mx-auto rounded-xl shadow-2xl animate-zoom z-40 max-h-[80vh] object-contain">
+
+  <button onclick="nextModal()"
+          class="modal-next absolute right-2 sm:right-6 text-white text-3xl z-50 bg-black/30 px-3 py-2 rounded-full">
+    ›
+  </button>
+
+  <button onclick="closeModal()"
+          class="absolute top-4 right-4 sm:top-6 sm:right-6 text-white text-2xl font-bold z-50 bg-black/30 w-9 h-9 flex items-center justify-center rounded-full">
+    ✕
+  </button>
 </div>
 
-</body>
 <script>
-let index = 0;
-const slider = document.getElementById("slider-wono");
+  // ===== SLIDER =====
+  let index = 0;
+  const slider = document.getElementById("slider-wono");
 
-function showSlide() {
-  slider.style.transform = `translateX(-${index * 100}%)`;
-}
+  function showSlide() {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+  }
+  function nextSlide() {
+    index = (index + 1) % 3;
+    showSlide();
+  }
+  function prevSlide() {
+    index = (index - 1 + 3) % 3;
+    showSlide();
+  }
 
-function nextSlide() {
-  index = (index + 1) % 3;
-  showSlide();
-}
+  // ===== MODAL =====
+  let modalImages = [];
+  let modalIndex = 0;
 
-function prevSlide() {
-  index = (index - 1 + 3) % 3;
-  showSlide();
-}
+  function openModal(src, images) {
+    const modal = document.getElementById("imageModal");
+    const img = document.getElementById("modalImage");
+    modalImages = images;
+    modalIndex = modalImages.indexOf(src);
+    img.src = src;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    updateButtons();
+  }
+  function nextModal() {
+    if (modalImages.length <= 1) return;
+    modalIndex = (modalIndex + 1) % modalImages.length;
+    document.getElementById("modalImage").src = modalImages[modalIndex];
+  }
+  function prevModal() {
+    if (modalImages.length <= 1) return;
+    modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
+    document.getElementById("modalImage").src = modalImages[modalIndex];
+  }
+  function updateButtons() {
+    const show = modalImages.length > 1;
+    document.querySelector(".modal-prev").style.display = show ? "flex" : "none";
+    document.querySelector(".modal-next").style.display = show ? "flex" : "none";
+  }
+  function closeModal() {
+    const modal = document.getElementById("imageModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
 
-
-let modalImages = [];
-let modalIndex = 0;
-
-function openModal(src, images) {
-  const modal = document.getElementById("imageModal");
-  const img = document.getElementById("modalImage");
-
-  modalImages = images; // ← sesuai project
-  modalIndex = modalImages.indexOf(src);
-
-  img.src = src;
-
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-
-  updateButtons();
-}
-
-function nextModal() {
-  if (modalImages.length <= 1) return;
-  modalIndex = (modalIndex + 1) % modalImages.length;
-  document.getElementById("modalImage").src = modalImages[modalIndex];
-}
-
-function prevModal() {
-  if (modalImages.length <= 1) return;
-  modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
-  document.getElementById("modalImage").src = modalImages[modalIndex];
-}
-
-function updateButtons() {
-  const show = modalImages.length > 1;
-
-  document.querySelector(".modal-prev").style.display = show ? "block" : "none";
-  document.querySelector(".modal-next").style.display = show ? "block" : "none";
-}
-
-function closeModal() {
-  const modal = document.getElementById("imageModal");
-  modal.classList.add("hidden");
-  modal.classList.remove("flex");
-}
+  // Tutup modal dengan tombol ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowRight") nextModal();
+    if (e.key === "ArrowLeft") prevModal();
+  });
 </script>
+</body>
 </html>
