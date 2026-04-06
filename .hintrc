@@ -1,6 +1,6 @@
 {
   "extends": [
-    "development"
+    "web-recommended"
   ],
   "hints": {
     "meta-viewport": "off",
