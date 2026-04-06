@@ -10,6 +10,7 @@
         "image-alt": "off"
       }
     ],
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "html-checker": "off"
   }
 }
