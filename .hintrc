@@ -11,6 +11,15 @@
       }
     ],
     "disown-opener": "off",
-    "html-checker": "off"
+    "html-checker": "off",
+    "no-inline-styles": "off",
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "user-select"
+        ]
+      }
+    ]
   }
 }
