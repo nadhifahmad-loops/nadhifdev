@@ -1,669 +1,967 @@
-<!DOCTYPE html>
-<html lang="id">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nadhif Dev – Jasa Website UMKM Surabaya & Sidoarjo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #0f0f0f;
-      --paper: #f8f5f0;
-      --accent: #e85d26;
-      --accent2: #1a6bff;
-      --muted: #6b6b6b;
-      --card: #ffffff;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      margin: 0;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-    }
-
-    /* Grain overlay */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    .nav-pill {
-      background: var(--ink);
-      color: white;
-      padding: 10px 22px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .nav-pill:hover { background: var(--accent); transform: translateY(-1px); }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #fff;
-      border: 1.5px solid #e5e5e5;
-      border-radius: 100px;
-      padding: 5px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .tag-green {
-      background: #dcfce7;
-      color: #15803d;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 100px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 20px;
-      border: 1.5px solid #e8e5e0;
-      overflow: hidden;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
-
-    .price-card {
-      background: var(--card);
-      border-radius: 24px;
-      border: 1.5px solid #e8e5e0;
-      padding: 32px;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .price-card:hover { transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
-    .price-card.featured {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--accent);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 15px;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .btn-primary:hover { background: #cc4a1a; transform: translateY(-2px); }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--ink);
-      padding: 14px 28px;
-      border-radius: 100px;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      border: 1.5px solid #ccc;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .btn-outline:hover { background: #fff; border-color: var(--ink); }
-
-    .hero-number {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(72px, 12vw, 140px);
-      font-weight: 800;
-      line-height: 0.9;
-      color: transparent;
-      -webkit-text-stroke: 2px var(--ink);
-      opacity: 0.07;
-      position: absolute;
-      right: -10px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .marquee-track {
-      display: flex;
-      gap: 32px;
-      animation: marquee 18s linear infinite;
-      white-space: nowrap;
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .testimonial-card {
-      background: var(--ink);
-      color: white;
-      border-radius: 24px;
-      padding: 40px;
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 16px;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-up { animation: fadeUp 0.6s ease both; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-
-    @keyframes zoomIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    .animate-zoom { animation: zoomIn 0.25s ease; }
-
-    #slider-wono {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    #slider-wono img { flex-shrink: 0; width: 100%; }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #d0ccc5, transparent);
-      margin: 0;
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- ===== MARQUEE TICKER ===== -->
-<div style="background: var(--accent); overflow: hidden; padding: 10px 0;">
-  <div class="marquee-track">
-    <span style="color:white; font-size:13px; font-weight:600;">✦ Website UMKM Profesional</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Sidoarjo & Surabaya</span>
-    <span style="color:white; font-size:13px; font-weight:600;">✦ 4 Klien Aktif</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Harga Mulai 750rb</span>
-    <span style="color:white; font-size:13px; font-weight:600;">✦ Responsif & Mobile Friendly</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Langsung Live di Internet</span>
-    <span style="color:white; font-size:13px; font-weight:600;">✦ Website UMKM Profesional</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Sidoarjo & Surabaya</span>
-    <span style="color:white; font-size:13px; font-weight:600;">✦ 4 Klien Aktif</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Harga Mulai 750rb</span>
-    <span style="color:white; font-size:13px; font-weight:600;">✦ Responsif & Mobile Friendly</span>
-    <span style="color:rgba(255,255,255,0.6); font-size:13px;">Langsung Live di Internet</span>
-  </div>
-</div>
-
-<!-- ===== NAVBAR ===== -->
-<nav style="max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;">
-  <div>
-    <span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; color: var(--ink);">Nadhif<span style="color: var(--accent);">.</span>dev</span>
-  </div>
-  <a href="https://wa.me/628975054804" class="nav-pill">
-    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    Konsultasi Gratis
-  </a>
-</nav>
-
-<!-- ===== HERO ===== -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 40px 24px 80px; position: relative; overflow: hidden;">
-  
-  <div class="fade-up" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; align-items: center;">
-    <span class="badge">✦ Berbasis di Sidoarjo</span>
-    <span class="badge">4 Klien Aktif</span>
-    <span class="badge">⚡ Pengerjaan Cepat</span>
-  </div>
-
-  <h1 class="fade-up delay-1" style="font-size: clamp(36px, 6vw, 80px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; max-width: 800px; margin: 0 0 24px;">
-    Website yang bikin<br>
-    <span style="color: var(--accent);">usaha Anda</span> ditemukan<br>
-    lebih banyak orang
-  </h1>
-
-  <p class="fade-up delay-2" style="font-size: clamp(16px, 2vw, 20px); color: var(--muted); max-width: 520px; line-height: 1.65; margin: 0 0 40px;">
-    Siap membantu UMKM, toko, barbershop, dan bisnis lokal di Surabaya & Sidoarjo tampil profesional di internet — dengan harga yang masuk akal.
-  </p>
-
-  <div class="fade-up delay-3" style="display: flex; flex-wrap: wrap; gap: 14px;">
-    <a href="https://wa.me/628975054804?text=Saya%20ingin%20konsultasi%20website%20UMKM" class="btn-primary">
-      Mulai Konsultasi — Gratis
-      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <a href="#portfolio" class="btn-outline">Lihat Portofolio</a>
-  </div>
-
-  <!-- Stats -->
-  <div style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 64px; padding-top: 40px; border-top: 1.5px solid #e8e5e0;">
-    <div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 40px; font-weight: 800; color: var(--ink);">4+</div>
-      <div style="font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px;">Project Selesai</div>
-    </div>
-    <div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 40px; font-weight: 800; color: var(--ink);">100%</div>
-      <div style="font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px;">Klien Puas</div>
-    </div>
-    <div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 40px; font-weight: 800; color: var(--ink);">&lt;7 Hari</div>
-      <div style="font-size: 13px; color: var(--muted); font-weight: 500; margin-top: 4px;">Rata-rata Pengerjaan</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ===== ABOUT ME ===== -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
-    
-    <!-- Left: Photo placeholder + info -->
-    <div>
-      <div style="width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #f0ede8 0%, #e0dbd3 100%); border-radius: 24px; border: 1.5px solid #e8e5e0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; position: relative; overflow: hidden;">
-        <!-- Decorative circles -->
-        <div style="position: absolute; width: 200px; height: 200px; border-radius: 50%; background: var(--accent); opacity: 0.08; top: -60px; right: -60px;"></div>
-        <div style="position: absolute; width: 120px; height: 120px; border-radius: 50%; background: var(--accent2); opacity: 0.08; bottom: -30px; left: -30px;"></div>
-        
-        <div style="width: 80px; height: 80px; border-radius: 50%; background: #d0ccc5; display: flex; align-items: center; justify-content: center; font-size: 36px; z-index: 1;"><img src="profil.jpeg" alt="foto profil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>
-        <div style="text-align: center; z-index: 1;">
-          <div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 18px;">Nadhif Ahmad</div>
-          <div style="font-size: 13px; color: var(--muted); margin-top: 4px;">Web Developer · Sidoarjo</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: Bio -->
-    <div>
-      <span class="section-label">Tentang Saya</span>
-      <h2 style="font-size: clamp(28px, 3.5vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 20px;">
-        Developer lokal yang paham bisnis di lapangan
-      </h2>
-      <p style="font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0 0 16px;">
-        Saya <b>Nadhif</b>, web developer yang fokus membantu UMKM dan bisnis lokal based on <b>Surabaya & Sidoarjo</b>. Kalau Anda ingin mulai go online tanpa ribet, saya siap bantu dari proses awal sampai website siap dipakai.
-      </p>
-      <p style="font-size: 16px; color: var(--muted); line-height: 1.75; margin: 0 0 32px;">
-        Saya percaya website itu bukan sekadar “ada”, tapi harus bisa bantu bisnis Anda dikenal lebih luas, terlihat lebih profesional, dan tentunya mendatangkan pelanggan.
-      </p>
-      <div style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--ink);">
-          <div style="width: 32px; height: 32px; border-radius: 10px; background: #dbeafe; display: flex; align-items: center; justify-content: center;">✓</div>
-          Berpengalaman membuat website bisnis lokal
-        </div>
-        <div style="display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--ink);">
-          <div style="width: 32px; height: 32px; border-radius: 10px; background: #fef3c7; display: flex; align-items: center; justify-content: center;">✓</div>
-          Bisa ditemui langsung di Sidoarjo / Surabaya
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ===== PORTFOLIO ===== -->
-<section id="portfolio" style="max-width: 1200px; margin: 0 auto; padding: 80px 24px;">
-  <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 48px;">
-    <div>
-      <span class="section-label">Portofolio</span>
-      <h2 style="font-size: clamp(28px, 4vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: 0;">
-        Website Bisnis Lokal<br>yang Saya Kembangkan
-      </h2>
-    </div>
-    <a href="https://wa.me/628975054804" class="btn-outline" style="font-size: 14px; padding: 10px 22px;">Diskusi Project →</a>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
-
-    <!-- MLB SUPPLY -->
-    <div class="card">
-      <div style="overflow: hidden; height: 220px; background: #f0ede8;">
-        <img src="mlb.jpg" alt="MLB Supply" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" onclick="openModal(this.src, ['mlb.jpg'])">
-      </div>
-      <div style="padding: 24px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <span class="tag-green">Real Project</span>
-          <span style="font-size: 11px; color: var(--muted);">Toko Supply</span>
-        </div>
-        <h3 style="font-size: 20px; font-weight: 700; margin: 0 0 8px;">MLB Supply</h3>
-        <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 12px;">Website toko dengan katalog produk lengkap untuk meningkatkan kepercayaan dan memperluas jangkauan customer.</p>
-        <p style="font-size: 13px; color: #15803d; font-weight: 600; margin: 0 0 16px;">✦ Website live & aktif digunakan</p>
-        <a href="https://mlbsupply.id/" target="_blank" style="font-size: 13px; color: var(--accent); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">Lihat Website <span>→</span></a>
-      </div>
-    </div>
-
-    <!-- UMKM WONOSUNYO -->
-    <div class="card">
-      <div style="position: relative; overflow: hidden; height: 220px; background: #f0ede8;">
-        <div style="display: flex; transition: transform 0.5s ease; height: 100%;" id="slider-wono">
-          <img src="wono1.jpg" style="flex-shrink:0; width:100%; height:100%; object-fit:cover; cursor:pointer;" onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
-          <img src="wono2.jpg" style="flex-shrink:0; width:100%; height:100%; object-fit:cover; cursor:pointer;" onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
-          <img src="wono3.jpg" style="flex-shrink:0; width:100%; height:100%; object-fit:cover; cursor:pointer;" onclick="openModal(this.src, ['wono1.jpg','wono2.jpg','wono3.jpg'])">
-        </div>
-        <button onclick="prevSlide()" style="position:absolute; left:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center;">‹</button>
-        <button onclick="nextSlide()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.9); border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:16px; font-weight:700; display:flex; align-items:center; justify-content:center;">›</button>
-      </div>
-      <div style="padding: 24px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <span class="tag-green">Real Project</span>
-          <span style="font-size: 11px; color: var(--muted);">UMKM / Sistem</span>
-        </div>
-        <h3 style="font-size: 20px; font-weight: 700; margin: 0 0 8px;">UMKM Wonosunyo</h3>
-        <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 12px;">Website lengkap dengan sistem kasir, halaman pembeli, dan dashboard admin — solusi lengkap untuk UMKM.</p>
-        <p style="font-size: 13px; color: #15803d; font-weight: 600; margin: 0 0 16px;">✦ Sistem aktif dipakai harian</p>
-        <a href="https://umkm-wonosunyo.engineering-umsura.id/" target="_blank" style="font-size: 13px; color: var(--accent); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">Lihat Website <span>→</span></a>
-      </div>
-    </div>
-
-    <!-- MRSOMET BARBERSHOP -->
-    <div class="card">
-      <div style="overflow: hidden; height: 220px; background: #f0ede8;">
-        <img src="mrsomet-preview.png" alt="Mrsomet Barbershop" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" onclick="openModal(this.src, ['mrsomet-preview.png'])">
-      </div>
-      <div style="padding: 24px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <span class="tag-green">Real Project</span>
-          <span style="font-size: 11px; color: var(--muted);">Barbershop</span>
-        </div>
-        <h3 style="font-size: 20px; font-weight: 700; margin: 0 0 8px;">Mrsomet Barbershop</h3>
-        <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 12px;">Website barbershop modern untuk meningkatkan branding dan memudahkan pelanggan menemukan & booking layanan.</p>
-        <p style="font-size: 13px; color: #15803d; font-weight: 600; margin: 0 0 16px;">✦ Website live & aktif</p>
-        <a href="https://mrsomet.vercel.app/" target="_blank" style="font-size: 13px; color: var(--accent); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">Lihat Website <span>→</span></a>
-      </div>
-    </div>
-
-    <!-- THE MAFIA BARBERSHOP -->
-    <div class="card">
-      <div style="overflow: hidden; height: 220px; background: #f0ede8;">
-        <img src="themafia.png" alt="The Mafia Barbershop" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer; transition: transform 0.4s;" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform='scale(1)'" onclick="openModal(this.src, ['themafia.png'])">
-      </div>
-      <div style="padding: 24px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <span class="tag-green">Real Project</span>
-          <span style="font-size: 11px; color: var(--muted);">Barbershop</span>
-        </div>
-        <h3 style="font-size: 20px; font-weight: 700; margin: 0 0 8px;">The Mafia Barbershop</h3>
-        <p style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 12px;">Website barbershop premium dengan desain bold dan booking system yang intuitif untuk pengalaman pelanggan terbaik.</p>
-        <p style="font-size: 13px; color: #15803d; font-weight: 600; margin: 0 0 16px;">✦ Domain custom & live</p>
-        <a href="https://themafiabarbershop.com" target="_blank" style="font-size: 13px; color: var(--accent); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">Lihat Website <span>→</span></a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ===== TESTIMONIAL ===== -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px;">
-  <span class="section-label">Kata Klien</span>
-  <h2 style="font-size: clamp(28px, 4vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 48px; max-width: 600px;">
-    Apa kata mereka yang sudah bekerja sama dengan saya?
-  </h2>
-
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
-    
-    <!-- Main testimonial -->
-    <div class="testimonial-card" style="grid-row: span 1;">
-      <div style="font-size: 48px; line-height: 1; margin-bottom: 20px; opacity: 0.4;">"</div>
-      <p style="font-size: clamp(18px, 2vw, 24px); font-weight: 600; line-height: 1.5; margin: 0 0 32px; font-family: 'Bricolage Grotesque', sans-serif;">
-        Prosesnya cepat, hasilnya memuaskan dan harganya terjangkau.
-      </p>
-      <div style="display: flex; align-items: center; gap: 14px;">
-        <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 20px;"><img src="themafia-logo.jpg" alt="Logo The Mafia Barbershop" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></div>
-        <div>
-          <div style="font-weight: 700; font-size: 15px;">Pak Devi Kurniawan</div>
-          <div style="font-size: 13px; opacity: 0.6; margin-top: 2px;">Owner, The Mafia Barbershop — Surabaya</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature cards -->
-    <div style="display: flex; flex-direction: column; gap: 16px;">
-      <div style="background: white; border-radius: 20px; padding: 24px; border: 1.5px solid #e8e5e0;">
-        <div class="feature-icon" style="background: #fef3c7;">⚡</div>
-        <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 8px;">Pengerjaan Cepat</h3>
-        <p style="font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6;">Website selesai dalam hitungan hari, bukan minggu. Bisnis Anda tidak perlu menunggu lama untuk go online.</p>
-      </div>
-      <div style="background: white; border-radius: 20px; padding: 24px; border: 1.5px solid #e8e5e0;">
-        <div class="feature-icon" style="background: #dbeafe;">📱</div>
-        <h3 style="font-size: 17px; font-weight: 700; margin: 0 0 8px;">Mobile First</h3>
-        <p style="font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6;">Semua website yang saya buat tampil sempurna di HP — karena 80% pengunjung membuka dari HP.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ===== HARGA ===== -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 80px 24px;">
-  <div style="text-align: center; margin-bottom: 56px;">
-    <span class="section-label">Paket Harga</span>
-    <h2 style="font-size: clamp(28px, 4vw, 52px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin: 0;">
-      Transparan, tanpa biaya tersembunyi
-    </h2>
-    <p style="font-size: 16px; color: var(--muted); margin: 16px auto 0; max-width: 480px; line-height: 1.65;">
-      Semua paket sudah termasuk desain, pengembangan, dan deployment. Bayar sekali, langsung live.
-    </p>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; align-items: stretch;">
-
-    <div class="price-card" style="display: flex; flex-direction: column; position: relative; border: 2px solid #ef4444; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.05);">
-      <div style="position: absolute; top: -14px; left: 24px; background: #ef4444; color: white; font-size: 12px; font-weight: 800; padding: 5px 16px; border-radius: 100px; letter-spacing: 0.05em; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">
-        🔥 DISKON 50%
-      </div>
-      
-      <div style="font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px;">Lite / Pelajar</div>
-      
-      <div style="display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px;">
-        <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 42px; font-weight: 800; color: var(--ink); line-height: 1;">150rb</div>
-        <div style="font-size: 18px; color: #a3a3a3; text-decoration: line-through; font-weight: 600;">300rb</div>
-      </div>
-      
-      <div style="font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;">Pas untuk landing page, tugas, atau web CV portofolio 1 halaman.</div>
-      <div style="height: 1px; background: #e8e5e0; margin-bottom: 24px;"></div>
-      
-      <ul style="list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #ef4444; font-weight: 700;">✓</span> 1 Halaman (Single Page)</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #ef4444; font-weight: 700;">✓</span> Desain clean & profesional</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #ef4444; font-weight: 700;">✓</span> Responsif di HP & Laptop</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #ef4444; font-weight: 700;">✓</span> Link ke WhatsApp/Sosmed</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #ef4444; font-weight: 700;">✓</span> Langsung live di internet</li>
-      </ul>
-      <a href="https://wa.me/628975054804?text=Halo%20Nadhif,%20saya%20tertarik%20Paket%20Promo%20Lite%20Pelajar%20150rb" style="display: block; text-align: center; background: #ef4444; color: white; padding: 14px; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; margin-top: auto;" onmouseover="this.style.background='#dc2626'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#ef4444'; this.style.transform='translateY(0)'">
-        Klaim Diskon 50%
-      </a>
-    </div>
-
-    <div class="price-card" style="display: flex; flex-direction: column;">
-      <div style="font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px;">Basic</div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 42px; font-weight: 800; margin-bottom: 4px; line-height: 1;">700rb</div>
-      <div style="font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;">Cocok untuk bisnis lokal yang baru mulai ingin tampil online.</div>
-      <div style="height: 1px; background: #e8e5e0; margin-bottom: 24px;"></div>
-      <ul style="list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> 3–5 halaman website</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Desain clean & profesional</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Responsif di semua device</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Integrasi tombol WhatsApp</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Langsung live di internet</li>
-      </ul>
-      <a href="https://wa.me/628975054804?text=Halo%20Nadhif,%20saya%20tertarik%20Paket%20Basic" style="display: block; text-align: center; border: 1.5px solid var(--ink); color: var(--ink); padding: 14px; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; margin-top: auto;" onmouseover="this.style.background='var(--ink)'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='var(--ink)'">
-        Pilih Paket Basic
-      </a>
-    </div>
-
-    <div class="price-card featured" style="display: flex; flex-direction: column; position: relative; box-shadow: 0 20px 40px rgba(15, 15, 15, 0.15);">
-      <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; font-size: 12px; font-weight: 700; padding: 5px 18px; border-radius: 100px; white-space: nowrap; letter-spacing: 0.04em; z-index: 2;">⭐ PALING POPULER</div>
-      <div style="font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px;">Standard</div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 42px; font-weight: 800; margin-bottom: 4px; color: white; line-height: 1;">1 Juta</div>
-      <div style="font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 24px; line-height: 1.6;">Terbaik untuk tingkatkan kepercayaan pelanggan & penjualan.</div>
-      <div style="height: 1px; background: rgba(255,255,255,0.15); margin-bottom: 24px;"></div>
-      <ul style="list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> Semua fitur Basic</li>
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> Desain lebih premium & menarik</li>
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> SEO dasar (bisa dicari di Google)</li>
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> Form kontak + WhatsApp</li>
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> Loading super cepat</li>
-        <li style="font-size: 14px; color: rgba(255,255,255,0.9); display: flex; gap: 10px; line-height: 1.4;"><span style="color: #86efac; font-weight: 700;">✓</span> Revisi hingga puas</li>
-      </ul>
-      <a href="https://wa.me/628975054804?text=Halo%20Nadhif,%20saya%20tertarik%20Paket%20Standard" style="display: block; text-align: center; background: white; color: var(--ink); padding: 14px; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; margin-top: auto;" onmouseover="this.style.background='#f0ede8'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='white'; this.style.transform='translateY(0)'">
-        Pilih Paket Standard
-      </a>
-    </div>
-
-    <div class="price-card" style="display: flex; flex-direction: column;">
-      <div style="font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 8px;">Pro</div>
-      <div style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 42px; font-weight: 800; margin-bottom: 4px; line-height: 1;">2,5 Juta</div>
-      <div style="font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6;">Untuk bisnis yang ingin tampil maksimal & siap scale up.</div>
-      <div style="height: 1px; background: #e8e5e0; margin-bottom: 24px;"></div>
-      <ul style="list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 14px; flex-grow: 1;">
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Semua fitur Standard</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Desain fully custom</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> SEO lanjutan & optimasi</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Google Analytics terintegrasi</li>
-        <li style="font-size: 14px; display: flex; gap: 10px; line-height: 1.4;"><span style="color: #15803d; font-weight: 700;">✓</span> Support & maintenance</li>
-      </ul>
-      <a href="https://wa.me/628975054804?text=Halo%20Nadhif,%20saya%20tertarik%20Paket%20Pro" style="display: block; text-align: center; background: var(--accent); color: white; padding: 14px; border-radius: 100px; font-weight: 700; font-size: 14px; text-decoration: none; transition: all 0.2s; margin-top: auto;" onmouseover="this.style.background='#cc4a1a'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--accent)'; this.style.transform='translateY(0)'">
-        Pilih Paket Pro
-      </a>
-    </div>
-
-  </div>
-
-  <p style="text-align: center; font-size: 13px; color: var(--muted); margin-top: 32px;">
-    * Harga dapat disesuaikan dengan kebutuhan tambahan fitur. Konsultasi selalu gratis sebelum deal.
-  </p>
-</section>
-
-<!-- ===== CTA FINAL ===== -->
-<section style="background: var(--ink); padding: 80px 24px;">
-  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-    <h2 style="font-size: clamp(28px, 5vw, 56px); font-weight: 800; color: white; line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 20px;">
-      Siap bawa bisnis Anda<br>ke level berikutnya?
-    </h2>
-    <p style="font-size: 17px; color: rgba(255,255,255,0.55); margin: 0 0 40px; line-height: 1.65;">
-      Chat saya sekarang — konsultasi gratis, tanpa komitmen. Kita diskusi dulu kebutuhan bisnis Anda.
-    </p>
-    <a href="https://wa.me/628975054804?text=Halo%20Nadhif,%20saya%20ingin%20konsultasi%20website%20untuk%20bisnis%20saya" class="btn-primary" style="font-size: 16px; padding: 16px 36px;">
-      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Chat via WhatsApp Sekarang
-    </a>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer style="padding: 32px 24px; text-align: center; font-size: 13px; color: var(--muted);">
-  © 2026 Nadhif Dev · Web Developer Sidoarjo & Surabaya
-</footer>
-
-<!-- ===== IMAGE MODAL ===== -->
-<div id="imageModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 24px;">
-  <div style="position: absolute; inset: 0;" onclick="closeModal()"></div>
-  <button onclick="prevModal()" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">‹</button>
-  <img id="modalImage" style="max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 12px; animation: zoomIn 0.25s ease; z-index: 5; position: relative;">
-  <button onclick="nextModal()" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: white; width: 44px; height: 44px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">›</button>
-  <button onclick="closeModal()" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.15); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">✕</button>
-</div>
-
-<!-- Responsive fix -->
+  <title>Nadhif Dev — Full Stack Web Developer | React, Next.js, Laravel</title>
+  <meta name="description" content="Full Stack Web Developer specializing in React, Next.js, Laravel, and Node.js. Building modern, performant web applications for businesses and startups.">
+  <meta name="keywords" content="full stack developer, web developer, React, Next.js, Laravel, Node.js, freelance developer, Sidoarjo, Indonesia">
+  <meta name="author" content="Nadhif Ahmad">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nadhif.dev">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nadhif Dev — Full Stack Web Developer">
+  <meta property="og:description" content="Building modern web applications with React, Next.js, Laravel, and Node.js.">
+  <meta property="og:image" content="profil.jpeg">
+  <meta property="og:url" content="https://nadhif.dev">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nadhif Dev — Full Stack Web Developer">
+  <meta name="twitter:description" content="Building modern web applications with React, Next.js, Laravel, and Node.js.">
+  <meta name="twitter:image" content="profil.jpeg">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Nadhif Ahmad","jobTitle":"Full Stack Web Developer","url":"https://nadhif.dev","image":"profil.jpeg","sameAs":["https://github.com/nadhif","https://linkedin.com/in/nadhif","https://instagram.com/nadhif.dev"],"knowsAbout":["React","Next.js","Laravel","Node.js","PostgreSQL","MySQL","Docker","AWS","Tailwind CSS","Vue.js"],"address":{"@type":"PostalAddress","addressLocality":"Sidoarjo","addressRegion":"East Java","addressCountry":"ID"}}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-  @media (max-width: 768px) {
-    section > div[style*="grid-template-columns: 1fr 1fr"] {
-      grid-template-columns: 1fr !important;
-    }
-    .testimonial-card + div { margin-top: 0; }
-  }
+:root{--ink:#0f0f0f;--paper:#f8f5f0;--accent:#e85d26;--accent-hover:#cc4a1a;--accent2:#1a6bff;--muted:#6b6b6b;--card:#ffffff;--border:#e8e5e0;--success:#15803d;--radius:20px;--radius-sm:12px;--radius-pill:100px;--max-w:1200px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,h5{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1;letter-spacing:-0.02em}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.35}
+.skip-link{position:absolute;top:-100%;left:16px;background:var(--ink);color:#fff;padding:12px 24px;border-radius:var(--radius-sm);z-index:10000;font-weight:600;font-size:14px;transition:top 0.2s}
+.skip-link:focus{top:16px}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.section{padding:100px 0}
+.section-sm{padding:60px 0}
+.section-label{font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--accent);display:inline-block}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--border),transparent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all var(--transition);border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,38,0.25)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid #ccc}
+.btn-outline:hover{border-color:var(--ink);background:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#222;transform:translateY(-2px)}
+.btn-white{background:#fff;color:var(--ink)}
+.btn-white:hover{background:#f0ede8;transform:translateY(-2px)}
+.btn-sm{padding:10px 20px;font-size:13px}
+.btn svg{flex-shrink:0}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-pill);padding:6px 16px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.badge-accent{background:rgba(232,93,38,0.08);color:var(--accent);border-color:rgba(232,93,38,0.2)}
+.badge-green{background:rgba(21,128,61,0.08);color:var(--success);border-color:rgba(21,128,61,0.2)}
+.tech-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(15,15,15,0.05);border-radius:var(--radius-pill);padding:5px 12px;font-size:12px;font-weight:600;color:var(--ink);letter-spacing:0.02em}
+.card{background:var(--card);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;transition:transform var(--transition),box-shadow var(--transition)}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.08)}
+.card-body{padding:28px}
+.top-marquee{background:linear-gradient(135deg,var(--accent) 0%,#d44a1a 100%);overflow:hidden;padding:10px 0}
+.marquee-track{display:flex;gap:40px;animation:marquee 25s linear infinite;white-space:nowrap;width:max-content}
+.marquee-track span{color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px}
+.marquee-track span strong{font-weight:700}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.navbar{position:fixed;top:40px;left:0;right:0;z-index:1000;padding:16px 0;transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.navbar.scrolled{top:0;background:rgba(248,245,240,0.92);backdrop-filter:blur(24px) saturate(1.2);-webkit-backdrop-filter:blur(24px) saturate(1.2);box-shadow:0 1px 0 rgba(0,0,0,0.06),0 4px 24px rgba(0,0,0,0.04);padding:10px 0}
+.navbar .container{display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--ink);transition:opacity var(--transition)}
+.nav-logo:hover{opacity:0.7}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color var(--transition);padding:6px 12px;border-radius:8px;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:2px;left:50%;width:0;height:2px;background:var(--accent);border-radius:1px;transition:width 0.25s cubic-bezier(0.4,0,0.2,1),left 0.25s cubic-bezier(0.4,0,0.2,1)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:16px;left:calc(50% - 8px)}
+.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{width:16px;left:calc(50% - 8px)}
+.nav-cta{background:var(--ink);color:#fff!important;padding:8px 20px;border-radius:var(--radius-pill);font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px;transition:all var(--transition)}
+.nav-cta:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(232,93,38,0.2)}
+.nav-cta svg{width:14px;height:14px}
+.nav-right{display:none}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;z-index:1002;position:relative}
+.hamburger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform-origin:center}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{position:fixed;inset:0;background:rgba(248,245,240,0.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;opacity:0;pointer-events:none;transition:opacity 0.35s cubic-bezier(0.4,0,0.2,1)}
+.mobile-menu.open{opacity:1;pointer-events:all}
+.mobile-menu .mobile-link,.mobile-menu .lang-toggle,.mobile-menu .btn{opacity:0;transform:translateY(20px);transition:opacity 0.4s cubic-bezier(0.4,0,0.2,1),transform 0.4s cubic-bezier(0.4,0,0.2,1)}
+.mobile-menu.open .mobile-link,.mobile-menu.open .lang-toggle,.mobile-menu.open .btn{opacity:1;transform:translateY(0)}
+.mobile-menu.open .mobile-link:nth-child(1),.mobile-menu.open .mobile-link:nth-child(2),.mobile-menu.open .mobile-link:nth-child(3),.mobile-menu.open .mobile-link:nth-child(4),.mobile-menu.open .mobile-link:nth-child(5),.mobile-menu.open .mobile-link:nth-child(6){transition-delay:calc(0.06s * var(--i))}
+.mobile-menu.open .lang-toggle{transition-delay:0.4s}
+.mobile-menu.open .btn{transition-delay:0.48s}
+.mobile-menu .mobile-link{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:700;color:var(--ink);transition:color var(--transition),opacity 0.4s cubic-bezier(0.4,0,0.2,1),transform 0.4s cubic-bezier(0.4,0,0.2,1);padding:8px 0}
+.mobile-menu .mobile-link:hover{color:var(--accent)}
+.mobile-menu .lang-toggle{font-size:16px;color:var(--muted);gap:8px;margin-top:24px;opacity:0;transform:translateY(20px)}
+.mobile-menu .lang-toggle svg{width:20px;height:20px}
+.mobile-menu .lang-toggle .lang-label{display:inline}
+.mobile-menu .btn{margin-top:12px;opacity:0;transform:translateY(20px)}
+.mobile-menu-close{position:absolute;top:20px;right:24px;background:none;border:none;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);border-radius:10px;transition:all var(--transition);z-index:1003;opacity:0;transform:translateY(-10px)}
+.mobile-menu.open .mobile-menu-close{opacity:1;transform:translateY(0);transition-delay:0.1s}
+.mobile-menu-close:hover{background:rgba(0,0,0,0.05)}
+.mobile-menu-close svg{width:20px;height:20px}
+.hero{padding-top:140px;padding-bottom:80px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-content{position:relative;z-index:2}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.hero h1{font-size:clamp(36px,5vw,68px);font-weight:800;line-height:1.05;margin-bottom:24px}
+.hero h1 .accent{color:var(--accent)}
+.hero-sub{font-size:clamp(16px,1.8vw,19px);color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:36px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:56px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:36px;padding-top:32px;border-top:1.5px solid var(--border)}
+.hero-stat-num{font-family:'Bricolage Grotesque',sans-serif;font-size:32px;font-weight:800;color:var(--ink);line-height:1}
+.hero-stat-label{font-size:13px;color:var(--muted);font-weight:500;margin-top:6px}
+.hero-photo{position:relative;display:flex;justify-content:center}
+.hero-photo-wrapper{width:380px;height:440px;border-radius:28px;overflow:hidden;position:relative;border:2px solid var(--border);box-shadow:0 32px 64px rgba(0,0,0,0.08)}
+.hero-photo-wrapper img{width:100%;height:100%;object-fit:cover}
+.hero-photo-bg{position:absolute;width:380px;height:440px;border-radius:28px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);opacity:0.12;top:16px;left:16px;z-index:-1}
+.float-badge{position:absolute;background:#fff;border-radius:14px;padding:10px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.1);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;z-index:3;animation:float 4s ease-in-out infinite}
+.float-badge .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.fb-1{top:20px;left:-20px;animation-delay:0s}
+.fb-2{top:40px;right:-10px;animation-delay:1s}
+.fb-3{bottom:80px;left:-30px;animation-delay:2s}
+.fb-4{bottom:30px;right:-20px;animation-delay:0.5s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.tech-section{padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.tech-marquee{display:flex;gap:32px;animation:marquee 30s linear infinite;width:max-content}
+.tech-marquee:hover{animation-play-state:paused}
+.tech-item{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:var(--radius-pill);border:1.5px solid var(--border);background:#fff;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;transition:all var(--transition);cursor:default}
+.tech-item:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px rgba(232,93,38,0.1)}
+.tech-item svg{flex-shrink:0}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+.about-photo-main{width:100%;aspect-ratio:4/5;border-radius:24px;overflow:hidden;border:2px solid var(--border)}
+.about-photo-main img{width:100%;height:100%;object-fit:cover}
+.about-photo{position:relative}
+.about-photo-decor{position:absolute;width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);opacity:0.08;bottom:-40px;right:-40px;z-index:-1}
+.about-content h2{font-size:clamp(28px,3.5vw,42px);font-weight:800;margin-bottom:24px}
+.about-text{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.about-values{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px;margin-bottom:40px}
+.about-value{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:var(--ink)}
+.about-value .icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--border)}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-item:last-child{margin-bottom:0}
+.timeline-item::before{content:'';position:absolute;left:-28px;top:6px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--accent)}
+.timeline-year{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:2px}
+.timeline-desc{font-size:14px;color:var(--muted);line-height:1.5}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.skill-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);padding:28px;transition:all var(--transition)}
+.skill-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.skill-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+.skill-card h3{font-size:18px;font-weight:700;margin-bottom:12px}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tag{background:rgba(15,15,15,0.04);border-radius:var(--radius-pill);padding:4px 12px;font-size:12px;font-weight:600;color:var(--muted)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.service-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);padding:32px;display:flex;flex-direction:column;transition:all var(--transition)}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,0.08)}
+.service-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px}
+.service-card h3{font-size:20px;font-weight:700;margin-bottom:10px}
+.service-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px;flex-grow:1}
+.service-features{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.service-feature{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.service-feature svg{width:16px;height:16px;color:var(--success);flex-shrink:0}
+.process-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;position:relative}
+.process-grid::before{content:'';position:absolute;top:36px;left:60px;right:60px;height:2px;background:var(--border);z-index:0}
+.process-step{text-align:center;position:relative;z-index:1}
+.process-num{width:72px;height:72px;border-radius:50%;background:#fff;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--accent);margin:0 auto 16px;transition:all var(--transition)}
+.process-step:hover .process-num{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.1)}
+.process-step h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.process-step p{font-size:12px;color:var(--muted);line-height:1.5}
+.project-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;transition:all var(--transition)}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 24px 56px rgba(0,0,0,0.08)}
+.project-grid{display:grid;grid-template-columns:1.1fr 1fr;min-height:400px}
+.project-image{position:relative;overflow:hidden;background:#f0ede8;min-height:300px}
+.project-image img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease}
+.project-card:hover .project-image img{transform:scale(1.04)}
+.project-image .live-badge{position:absolute;top:16px;left:16px;background:rgba(21,128,61,0.9);color:#fff;padding:5px 14px;border-radius:var(--radius-pill);font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;backdrop-filter:blur(8px)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#86efac;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.project-info{padding:36px;display:flex;flex-direction:column}
+.project-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.project-info h3{font-size:24px;font-weight:800;margin-bottom:8px}
+.project-role{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:12px}
+.project-info>p{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.project-tech{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.project-highlights{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;padding:16px;background:rgba(15,15,15,0.02);border-radius:var(--radius-sm)}
+.project-highlight h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:4px}
+.project-highlight p{font-size:13px;color:var(--muted);line-height:1.5}
+.project-actions{display:flex;gap:10px;margin-top:auto}
+.testimonials-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.testimonial-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);padding:32px;display:flex;flex-direction:column;transition:all var(--transition)}
+.testimonial-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.testimonial-card.featured{background:var(--ink);color:#fff;border-color:var(--ink);grid-row:span 2}
+.testimonial-quote{font-size:48px;line-height:1;opacity:0.15;font-family:'Bricolage Grotesque',sans-serif;margin-bottom:12px}
+.testimonial-text{font-size:17px;font-weight:500;line-height:1.65;margin-bottom:24px;flex-grow:1}
+.testimonial-card.featured .testimonial-text{font-size:20px;font-family:'Bricolage Grotesque',sans-serif;font-weight:600}
+.testimonial-rating{display:flex;gap:2px;margin-bottom:16px;color:#f59e0b;font-size:14px}
+.testimonial-author{display:flex;align-items:center;gap:14px}
+.testimonial-avatar{width:48px;height:48px;border-radius:50%;overflow:hidden;background:rgba(15,15,15,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.testimonial-avatar img{width:100%;height:100%;object-fit:cover}
+.testimonial-name{font-weight:700;font-size:15px}
+.testimonial-role{font-size:13px;opacity:0.6;margin-top:2px}
+.testimonial-project{font-size:12px;opacity:0.5;margin-top:2px}
+.trust-section{background:var(--ink);padding:64px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:32px;text-align:center}
+.trust-item{color:#fff}
+.trust-num{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4vw,48px);font-weight:800;line-height:1;margin-bottom:8px}
+.trust-num .accent{color:var(--accent)}
+.trust-label{font-size:14px;opacity:0.6;font-weight:500}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;transition:all var(--transition)}
+.faq-item.active{border-color:rgba(232,93,38,0.3);box-shadow:0 4px 16px rgba(232,93,38,0.06)}
+.faq-question{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;color:var(--ink);text-align:left}
+.faq-question svg{width:20px;height:20px;flex-shrink:0;color:var(--muted);transition:transform var(--transition)}
+.faq-item.active .faq-question svg{transform:rotate(45deg);color:var(--accent)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.35s ease}
+.faq-item.active .faq-answer{max-height:300px}
+.faq-answer-inner{padding:0 24px 20px;font-size:15px;color:var(--muted);line-height:1.75}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.blog-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);padding:32px;display:flex;flex-direction:column;transition:all var(--transition);position:relative}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.blog-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(232,93,38,0.08);color:var(--accent);border-radius:var(--radius-pill);padding:4px 12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;width:fit-content;margin-bottom:16px}
+.blog-card h3{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.blog-card p{font-size:14px;color:var(--muted);line-height:1.7;flex-grow:1}
+.cta-section{background:var(--ink);padding:100px 24px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:var(--accent);opacity:0.06;top:-200px;right:-200px;pointer-events:none}
+.cta-section::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:var(--accent2);opacity:0.05;bottom:-150px;left:-100px;pointer-events:none}
+.cta-content{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.cta-content h2{font-size:clamp(28px,5vw,52px);font-weight:800;color:#fff;margin-bottom:20px}
+.cta-content p{font-size:18px;color:rgba(255,255,255,0.5);margin-bottom:40px;line-height:1.7}
+.cta-buttons{display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+.footer{padding:64px 0 0;border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px}
+.footer-brand p{font-size:14px;color:var(--muted);line-height:1.7;margin-top:12px;max-width:280px}
+.footer-col h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:var(--muted);padding:4px 0;transition:color var(--transition)}
+.footer-col a:hover{color:var(--accent)}
+.footer-social{display:flex;gap:10px;margin-top:16px}
+.footer-social a{width:36px;height:36px;border-radius:10px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all var(--transition)}
+.footer-social a:hover{border-color:var(--accent);background:rgba(232,93,38,0.05);color:var(--accent)}
+.footer-social svg{width:16px;height:16px}
+.footer-bottom{border-top:1px solid var(--border);padding:20px 0;text-align:center;font-size:13px;color:var(--muted)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);display:none;align-items:center;justify-content:center;z-index:10000;padding:24px}
+.modal-overlay.active{display:flex}
+.modal-overlay .backdrop{position:absolute;inset:0}
+.modal-content{position:relative;z-index:2;max-width:90vw;max-height:85vh}
+.modal-content img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:12px}
+.modal-btn{position:absolute;background:rgba(255,255,255,0.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:3;transition:background var(--transition);backdrop-filter:blur(8px)}
+.modal-btn:hover{background:rgba(255,255,255,0.25)}
+.modal-close{top:16px;right:16px;width:40px;height:40px;border-radius:50%;font-size:18px}
+.modal-prev{left:16px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;font-size:20px}
+.modal-next{right:16px;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;font-size:20px}
+.lang-toggle{display:inline-flex;align-items:center;background:none;border:none;padding:6px;color:var(--muted);cursor:pointer;transition:color var(--transition);font-size:14px;font-weight:500;font-family:'DM Sans',sans-serif;gap:6px;line-height:1;border-radius:8px}
+.lang-toggle:hover{color:var(--accent);background:rgba(232,93,38,0.06)}
+.lang-toggle svg{width:18px;height:18px;pointer-events:none}
+.lang-toggle .lang-label{display:none}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s cubic-bezier(0.4,0,0.2,1),transform 0.7s cubic-bezier(0.4,0,0.2,1)}
+.reveal.revealed{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+.reveal-delay-5{transition-delay:0.5s}
+.reveal-delay-6{transition-delay:0.6s}
+@media(max-width:1024px){
+.hero-grid{grid-template-columns:1fr;gap:40px}
+.hero-photo{order:-1}
+.hero-photo-wrapper,.hero-photo-bg{width:300px;height:360px}
+.about-grid{grid-template-columns:1fr;gap:48px}
+.about-photo{max-width:400px;margin:0 auto}
+.skills-grid,.services-grid{grid-template-columns:repeat(2,1fr)}
+.process-grid{grid-template-columns:repeat(3,1fr);gap:24px}
+.process-grid::before{display:none}
+.project-grid{grid-template-columns:1fr}
+.project-image{min-height:240px}
+.testimonials-grid{grid-template-columns:1fr}
+.testimonial-card.featured{grid-row:auto}
+.trust-grid{grid-template-columns:repeat(3,1fr)}
+.blog-grid{grid-template-columns:repeat(2,1fr)}
+.footer-grid{grid-template-columns:repeat(2,1fr)}
+.float-badge{display:none}
+}
+@media(max-width:768px){
+.section{padding:72px 0}
+.nav-links{display:none}
+.nav-cta{display:none}
+.nav-right{display:flex}
+.hamburger{display:flex}
+.hero{padding-top:120px;padding-bottom:60px}
+.hero-photo-wrapper,.hero-photo-bg{width:260px;height:300px}
+.hero-stats{gap:24px}
+.skills-grid,.services-grid{grid-template-columns:1fr}
+.process-grid{grid-template-columns:repeat(2,1fr)}
+.project-highlights{grid-template-columns:1fr;gap:16px}
+.trust-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+.blog-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr;gap:32px}
+.hero-actions{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+.hero h1{font-size:32px}
+.hero-photo-wrapper,.hero-photo-bg{width:220px;height:260px}
+.hero-stats{gap:20px}
+.hero-stat-num{font-size:24px}
+.process-grid{grid-template-columns:1fr}
+.about-values{grid-template-columns:1fr}
+.project-actions{flex-direction:column}
+.project-actions .btn{width:100%}
+}
 </style>
-
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="top-marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span><strong>Full Stack Web Developer</strong></span>
+    <span>React · Next.js · Laravel · Node.js</span>
+    <span><strong>Open for Projects</strong></span>
+    <span>Available Freelance &amp; Full-time</span>
+    <span><strong>15+ Projects Delivered</strong></span>
+    <span>Sidoarjo, East Java — Indonesia</span>
+    <span><strong>Full Stack Web Developer</strong></span>
+    <span>React · Next.js · Laravel · Node.js</span>
+    <span><strong>Open for Projects</strong></span>
+    <span>Available Freelance &amp; Full-time</span>
+    <span><strong>15+ Projects Delivered</strong></span>
+    <span>Sidoarjo, East Java — Indonesia</span>
+  </div>
+</div>
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="#" class="nav-logo" aria-label="Nadhif Dev - Home">Nadhif<span>.</span>dev</a>
+    <div class="nav-links">
+      <a href="#about" data-i18n="nav-about">About</a>
+      <a href="#skills" data-i18n="nav-skills">Skills</a>
+      <a href="#services" data-i18n="nav-services">Services</a>
+      <a href="#process" data-i18n="nav-process">Process</a>
+      <a href="#projects" data-i18n="nav-projects">Projects</a>
+      <a href="#faq" data-i18n="nav-faq">FAQ</a>
+      <button class="lang-toggle" onclick="toggleLang()" aria-label="Toggle language EN/ID"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></button>
+    </div>
+    <a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I%20want%20to%20consult%20about%20a%20project" class="nav-cta" target="_blank" rel="noopener">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Let's Talk
+    </a>
+    <div class="nav-right">
+      <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="#about" class="mobile-link" style="--i:0" data-i18n="nav-about">About</a>
+  <a href="#skills" class="mobile-link" style="--i:1" data-i18n="nav-skills">Skills</a>
+  <a href="#services" class="mobile-link" style="--i:2" data-i18n="nav-services">Services</a>
+  <a href="#projects" class="mobile-link" style="--i:3" data-i18n="nav-projects">Projects</a>
+  <a href="#process" class="mobile-link" style="--i:4" data-i18n="nav-process">Process</a>
+  <a href="#faq" class="mobile-link" style="--i:5" data-i18n="nav-faq">FAQ</a>
+  <button class="lang-toggle" onclick="toggleLang()" aria-label="Toggle language EN/ID"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="lang-label" data-i18n-lang>EN</span></button>
+  <a href="https://wa.me/628975054804" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="nav-cta">Let's Talk</a>
+</div>
+<main id="main">
+<section class="hero" aria-label="Introduction">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-badges reveal">
+          <span class="badge badge-green"><svg width="8" height="8"><circle cx="4" cy="4" r="4" fill="#22c55e"/></svg> <span data-i18n="hero-badge-1">Available for projects</span></span>
+          <span class="badge" data-i18n="hero-badge-2">Sidoarjo, Indonesia</span>
+        </div>
+        <h1 class="reveal reveal-delay-1" data-i18n="hero-h1">I Build <span class="accent">Modern Web Applications</span> That Drive Business Growth</h1>
+        <p class="hero-sub reveal reveal-delay-2" data-i18n="hero-sub">Full Stack Developer specializing in React, Next.js, Laravel, and Node.js. I help businesses and startups transform ideas into performant, scalable digital products — from concept to deployment.</p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="#projects" class="btn btn-primary"><span data-i18n="hero-btn-work">View My Work</span> <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I%20want%20to%20consult%20about%20a%20project" class="btn btn-outline" target="_blank" rel="noopener"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span data-i18n="hero-btn-connect">Let's Connect</span></a>
+          <a href="#" class="btn btn-outline"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> <span data-i18n="hero-btn-cv">Download CV</span></a>
+        </div>
+        <div class="hero-stats reveal reveal-delay-4">
+          <div><div class="hero-stat-num">15<span style="color:var(--accent)">+</span></div><div class="hero-stat-label" data-i18n="hero-stat-1">Projects Delivered</div></div>
+          <div><div class="hero-stat-num">3<span style="color:var(--accent)">+</span></div><div class="hero-stat-label" data-i18n="hero-stat-2">Years Experience</div></div>
+          <div><div class="hero-stat-num">100<span style="color:var(--accent)">%</span></div><div class="hero-stat-label" data-i18n="hero-stat-3">Responsive Design</div></div>
+          <div><div class="hero-stat-num">98</div><div class="hero-stat-label" data-i18n="hero-stat-4">Lighthouse Score</div></div>
+        </div>
+      </div>
+      <div class="hero-photo reveal reveal-delay-2">
+        <div class="hero-photo-bg"></div>
+        <div class="hero-photo-wrapper">
+          <img src="profil.jpeg" alt="Nadhif Ahmad — Full Stack Web Developer" width="380" height="440" loading="eager">
+        </div>
+        <div class="float-badge fb-1"><div class="icon" style="background:#dbeafe;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><div><div style="font-size:15px;font-weight:800;">15+</div><div style="font-size:11px;color:var(--muted);font-weight:500;">Projects</div></div></div>
+        <div class="float-badge fb-2"><div class="icon" style="background:#fef3c7;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:15px;font-weight:800;">98</div><div style="font-size:11px;color:var(--muted);font-weight:500;">Lighthouse</div></div></div>
+        <div class="float-badge fb-3"><div class="icon" style="background:#dcfce7;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg></div><div><div style="font-size:15px;font-weight:800;">100%</div><div style="font-size:11px;color:var(--muted);font-weight:500;">Responsive</div></div></div>
+        <div class="float-badge fb-4"><div class="icon" style="background:#f3e8ff;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div style="font-size:15px;font-weight:800;">3+</div><div style="font-size:11px;color:var(--muted);font-weight:500;">Years</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="tech-section" aria-label="Technologies">
+  <div class="container"><div class="section-label reveal" style="justify-content:center;">Technologies I Work With</div></div>
+  <div class="tech-marquee" aria-hidden="true">
+    <div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg> React</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Next.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h4l6 10.5L18 3h4L12 21 2 3z"/></svg> Vue</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="12" y1="6" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg> TypeScript</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg> Node.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Express.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 3L6 12l12 9"/></svg> Laravel</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> PHP</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> PostgreSQL</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> MySQL</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c4-3 8-7 8-12C20 6 16.5 2 12 2S4 6 4 10c0 5 4 9 8 12z"/></svg> MongoDB</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Docker</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> AWS</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg> Tailwind CSS</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg> Git</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="12 3 22 21 2 21"/></svg> Vercel</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c1 4-2 6-2 10a4 4 0 0 0 8 0c0-4-3-6-2-10"/></svg> Firebase</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Figma</div>
+    <div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg> React</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Next.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h4l6 10.5L18 3h4L12 21 2 3z"/></svg> Vue</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="12" y1="6" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg> TypeScript</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/></svg> Node.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Express.js</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 3L6 12l12 9"/></svg> Laravel</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> PHP</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> PostgreSQL</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> MySQL</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c4-3 8-7 8-12C20 6 16.5 2 12 2S4 6 4 10c0 5 4 9 8 12z"/></svg> MongoDB</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Docker</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> AWS</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg> Tailwind CSS</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg> Git</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon points="12 3 22 21 2 21"/></svg> Vercel</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c1 4-2 6-2 10a4 4 0 0 0 8 0c0-4-3-6-2-10"/></svg> Firebase</div><div class="tech-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Figma</div>
+  </div>
+</section>
+<section id="about" class="section" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <div class="about-photo-main"><img src="profil.jpeg" alt="Nadhif Ahmad - Full Stack Developer" width="480" height="600" loading="lazy"></div>
+        <div class="about-photo-decor"></div>
+      </div>
+      <div class="about-content">
+        <span class="section-label reveal" data-i18n="about-label">About Me</span>
+        <h2 id="about-heading" class="reveal reveal-delay-1" data-i18n="about-h2">A passionate developer building digital products that make a real impact</h2>
+        <p class="about-text reveal reveal-delay-2" data-i18n="about-text-1">I'm <strong>Nadhif Ahmad</strong>, a Full Stack Web Developer based in Sidoarjo, East Java. I specialize in building modern web applications — from high-converting landing pages to complex full-stack systems.</p>
+        <p class="about-text reveal reveal-delay-2" data-i18n="about-text-2">My passion lies at the intersection of clean code and intuitive design. I believe every digital product should not only work flawlessly but also deliver an exceptional user experience.</p>
+        <div class="about-values reveal reveal-delay-3">
+          <div class="about-value"><div class="icon" style="background:#dbeafe;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div> Clean Code</div>
+          <div class="about-value"><div class="icon" style="background:#dcfce7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div> User-First Design</div>
+          <div class="about-value"><div class="icon" style="background:#fef3c7;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div> Continuous Learning</div>
+          <div class="about-value"><div class="icon" style="background:#f3e8ff;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div> Transparent Communication</div>
+        </div>
+        <h4 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:16px;" class="reveal reveal-delay-3" data-i18n="about-journey">My Journey</h4>
+        <div class="timeline reveal reveal-delay-4">
+          <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-desc">Started learning HTML, CSS &amp; JavaScript fundamentals</div></div>
+          <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-desc">Deep dive into React ecosystem &amp; modern frontend development</div></div>
+          <div class="timeline-item"><div class="timeline-year">2024</div><div class="timeline-desc">Full Stack development with Node.js, Laravel &amp; PostgreSQL</div></div>
+          <div class="timeline-item"><div class="timeline-year">2025</div><div class="timeline-desc">First professional clients &amp; launched 10+ projects</div></div>
+          <div class="timeline-item"><div class="timeline-year">2026</div><div class="timeline-desc">Expanded to international clients &amp; complex web applications</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="skills" class="section" aria-labelledby="skills-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label reveal" style="justify-content:center;" data-i18n="skills-label">Technical Skills</span>
+      <h2 id="skills-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;margin:0 auto;" data-i18n="skills-h2">Tech Stack I Master</h2>
+      <p class="reveal reveal-delay-2" style="font-size:16px;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.7;" data-i18n="skills-sub">The technologies I use to build modern, high-performance digital products.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><div class="skill-icon" style="background:#dbeafe;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><h3>Frontend</h3><div class="skill-tags"><span class="skill-tag">React</span><span class="skill-tag">Vue</span><span class="skill-tag">Next.js</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Tailwind CSS</span><span class="skill-tag">HTML5</span><span class="skill-tag">CSS3</span><span class="skill-tag">JavaScript ES6+</span></div></div>
+      <div class="skill-card reveal reveal-delay-1"><div class="skill-icon" style="background:#dcfce7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div><h3>Backend</h3><div class="skill-tags"><span class="skill-tag">Node.js</span><span class="skill-tag">Express.js</span><span class="skill-tag">Laravel</span><span class="skill-tag">PHP</span><span class="skill-tag">REST API</span><span class="skill-tag">GraphQL</span></div></div>
+      <div class="skill-card reveal reveal-delay-2"><div class="skill-icon" style="background:#fef3c7;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3>Database</h3><div class="skill-tags"><span class="skill-tag">PostgreSQL</span><span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">Firebase</span></div></div>
+      <div class="skill-card reveal reveal-delay-3"><div class="skill-icon" style="background:#f3e8ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div><h3>Cloud &amp; DevOps</h3><div class="skill-tags"><span class="skill-tag">AWS</span><span class="skill-tag">Docker</span><span class="skill-tag">Vercel</span><span class="skill-tag">Netlify</span><span class="skill-tag">GitHub Actions</span><span class="skill-tag">CI/CD</span></div></div>
+      <div class="skill-card reveal reveal-delay-4"><div class="skill-icon" style="background:#e0e7ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3>Tools</h3><div class="skill-tags"><span class="skill-tag">VS Code</span><span class="skill-tag">Git</span><span class="skill-tag">Figma</span><span class="skill-tag">Postman</span><span class="skill-tag">Linux</span><span class="skill-tag">Chrome DevTools</span></div></div>
+      <div class="skill-card reveal reveal-delay-5"><div class="skill-icon" style="background:#fce7f3;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4c0 2 1 3 2 4l2 2 2-2c1-1 2-2 2-4a4 4 0 0 0-4-4z"/><line x1="12" y1="12" x2="12" y2="22"/><path d="M8 14c-2 0-4 1-4 3v1h16v-1c0-2-2-3-4-3"/></svg></div><h3>AI &amp; Emerging</h3><div class="skill-tags"><span class="skill-tag">OpenAI API</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">AI Integration</span><span class="skill-tag">Chatbot Development</span></div></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="services" class="section" aria-labelledby="services-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label reveal" style="justify-content:center;" data-i18n="services-label">Services</span>
+      <h2 id="services-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:640px;margin:0 auto;" data-i18n="services-h2">Digital Solutions I Can Help With</h2>
+      <p class="reveal reveal-delay-2" style="font-size:16px;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.7;" data-i18n="services-sub">From simple landing pages to complex web applications — I help bring your ideas to life as real digital products.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal" data-i18n-html="svc-landing"><div class="service-icon" style="background:#dbeafe;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><h3>Landing Page</h3><p>A single page designed for conversion — turning visitors into your customers.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Responsive &amp; modern design</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> SEO optimized</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> WhatsApp integration</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Fast loading</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20a%20landing%20page" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+      <div class="service-card reveal reveal-delay-1" data-i18n-html="svc-company"><div class="service-icon" style="background:#dcfce7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="18"/><line x1="15" y1="22" x2="15" y2="18"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/></svg></div><h3>Company Profile</h3><p>Professional multi-page website to build your business credibility and image.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Multi-page website</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Gallery &amp; portfolio</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Contact form</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Team section</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20a%20company%20profile" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+      <div class="service-card reveal reveal-delay-2" data-i18n-html="svc-dashboard"><div class="service-icon" style="background:#fef3c7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><h3>Dashboard Admin</h3><p>Custom admin panel with authentication, CRUD, and data visualization.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Authentication &amp; role-based access</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> CRUD operations</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Charts &amp; analytics</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Responsive design</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20a%20dashboard%20admin" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+      <div class="service-card reveal reveal-delay-3" data-i18n-html="svc-booking"><div class="service-icon" style="background:#f3e8ff;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg></div><h3>Booking System</h3><p>Booking and scheduling system with notifications for service-based businesses.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Calendar integration</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Real-time availability</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Email &amp; WhatsApp notifications</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Payment integration</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20a%20booking%20system" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+      <div class="service-card reveal reveal-delay-4" data-i18n-html="svc-inventory"><div class="service-icon" style="background:#e0e7ff;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Inventory Management</h3><p>Inventory management system with stock tracking, reporting, and multi-user access.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Stock tracking real-time</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Reporting &amp; analytics</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Multi-user access</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Barcode support</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20an%20inventory%20system" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+      <div class="service-card reveal reveal-delay-5" data-i18n-html="svc-custom"><div class="service-icon" style="background:#fce7f3;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg></div><h3>Custom Web Application</h3><p>Full-stack solutions built to your business's specific needs.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Full-stack development</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> API integration</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Database design</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Cloud deployment</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20a%20custom%20web%20application" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Discuss Project →</a></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="process" class="section" aria-labelledby="process-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label reveal" style="justify-content:center;" data-i18n="process-label">How I Work</span>
+      <h2 id="process-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;margin:0 auto;" data-i18n="process-h2">A Structured Workflow</h2>
+      <p class="reveal reveal-delay-2" style="font-size:16px;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.7;" data-i18n="process-sub">Every project follows a proven workflow that delivers high-quality results.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal"><div class="process-num">01</div><h3 data-i18n="process-1-h3">Discovery</h3><p data-i18n="process-1">Understanding your needs, goals, and target audience</p></div>
+      <div class="process-step reveal reveal-delay-1"><div class="process-num">02</div><h3 data-i18n="process-2-h3">Planning</h3><p data-i18n="process-2">Architecture, tech stack selection, and project roadmap</p></div>
+      <div class="process-step reveal reveal-delay-2"><div class="process-num">03</div><h3 data-i18n="process-3-h3">UI/UX Design</h3><p data-i18n="process-3">Wireframes, mockups, and interactive prototypes</p></div>
+      <div class="process-step reveal reveal-delay-3"><div class="process-num">04</div><h3 data-i18n="process-4-h3">Development</h3><p data-i18n="process-4">Clean code with best practices &amp; version control</p></div>
+      <div class="process-step reveal reveal-delay-4"><div class="process-num">05</div><h3 data-i18n="process-5-h3">Testing</h3><p data-i18n="process-5">QA, performance optimization, cross-browser testing</p></div>
+      <div class="process-step reveal reveal-delay-5"><div class="process-num">06</div><h3 data-i18n="process-6-h3">Launch</h3><p data-i18n="process-6">Deployment, monitoring, and ongoing support</p></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section id="projects" class="section" aria-labelledby="projects-heading">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:56px;">
+      <div><span class="section-label reveal">Selected Projects</span><h2 id="projects-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;" data-i18n="projects-h2">Projects I've Worked On</h2></div>
+      <a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I'd%20like%20to%20discuss%20a%20project" class="btn btn-outline btn-sm reveal reveal-delay-2" target="_blank" rel="noopener" data-i18n="projects-btn">Discuss Project →</a>
+    </div>
+    <div class="project-card reveal" style="margin-bottom:24px;">
+      <div class="project-grid">
+        <div class="project-image"><img src="themafia.png" alt="The Mafia Barbershop Website" width="600" height="400" loading="lazy"><div class="live-badge"><span class="live-dot"></span> Live</div></div>
+        <div class="project-info">
+          <div class="project-meta"><span class="badge badge-accent">Service Business</span><span class="badge badge-green">Real Project</span></div>
+          <h3 data-i18n="proj-1-title">The Mafia Barbershop</h3><div class="project-role">Full Stack Developer</div>
+          <p data-i18n="proj-1-desc">Premium barbershop website with bold design, intuitive booking system, and custom domain — significantly boosting brand awareness and customer experience.</p>
+          <div class="project-tech"><span class="tech-badge">Next.js</span><span class="tech-badge">Tailwind CSS</span><span class="tech-badge">Vercel</span></div>
+          <div class="project-highlights"><div class="project-highlight"><h4 data-i18n="proj-h-challenge">Challenge</h4><p data-i18n="proj-1-c">Premium barbershop needed a website on par with international brands</p></div><div class="project-highlight"><h4 data-i18n="proj-h-solution">Solution</h4><p data-i18n="proj-1-s">Bold design with intuitive booking flow &amp; interactive gallery</p></div><div class="project-highlight"><h4 data-i18n="proj-h-result">Result</h4><p data-i18n="proj-1-r">Custom domain live, bookings increased, brand awareness grew</p></div></div>
+          <div class="project-actions"><a href="https://themafiabarbershop.com" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Live Demo</a><button class="btn btn-outline btn-sm" data-i18n="proj-case-study">Case Study →</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal" style="margin-bottom:24px;">
+      <div class="project-grid">
+        <div class="project-image"><img src="wono1.jpg" alt="UMKM Wonosunyo System" width="600" height="400" loading="lazy"><div class="live-badge"><span class="live-dot"></span> Live</div></div>
+        <div class="project-info">
+          <div class="project-meta"><span class="badge badge-accent">Web Application</span><span class="badge badge-green">Real Project</span></div>
+          <h3 data-i18n="proj-2-title">UMKM Wonosunyo</h3><div class="project-role">Full Stack Developer</div>
+          <p data-i18n="proj-2-desc">Complete management system for MSMEs — including admin dashboard, cashier system, customer pages, and product management. An all-in-one solution for daily business operations.</p>
+          <div class="project-tech"><span class="tech-badge">Laravel</span><span class="tech-badge">MySQL</span><span class="tech-badge">Bootstrap</span></div>
+          <div class="project-highlights"><div class="project-highlight"><h4 data-i18n="proj-h-challenge">Challenge</h4><p data-i18n="proj-2-c">MSME needed an integrated system for cashier, inventory, and customers</p></div><div class="project-highlight"><h4 data-i18n="proj-h-solution">Solution</h4><p data-i18n="proj-2-s">Full dashboard admin + cashier system + customer-facing pages</p></div><div class="project-highlight"><h4 data-i18n="proj-h-result">Result</h4><p data-i18n="proj-2-r">More efficient operations, all features actively used daily</p></div></div>
+          <div class="project-actions"><a href="https://umkm-wonosunyo.engineering-umsura.id/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Live Demo</a><button class="btn btn-outline btn-sm" data-i18n="proj-case-study">Case Study →</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal" style="margin-bottom:24px;">
+      <div class="project-grid">
+        <div class="project-image"><img src="mlb.jpg" alt="MLB Supply Website" width="600" height="400" loading="lazy"><div class="live-badge"><span class="live-dot"></span> Live</div></div>
+        <div class="project-info">
+          <div class="project-meta"><span class="badge badge-accent">E-commerce</span><span class="badge badge-green">Real Project</span></div>
+          <h3 data-i18n="proj-3-title">MLB Supply</h3><div class="project-role">Full Stack Developer</div>
+          <p data-i18n="proj-3-desc">Responsive and modern online product catalog — making it easy for customers to browse products and place orders directly via WhatsApp.</p>
+          <div class="project-tech"><span class="tech-badge">React</span><span class="tech-badge">Tailwind CSS</span><span class="tech-badge">Vercel</span></div>
+          <div class="project-highlights"><div class="project-highlight"><h4 data-i18n="proj-h-challenge">Challenge</h4><p data-i18n="proj-3-c">Offline store needed online presence to reach more customers</p></div><div class="project-highlight"><h4 data-i18n="proj-h-solution">Solution</h4><p data-i18n="proj-3-s">Responsive product catalog with WhatsApp order integration</p></div><div class="project-highlight"><h4 data-i18n="proj-h-result">Result</h4><p data-i18n="proj-3-r">Customer reach increased, online orders became easier</p></div></div>
+          <div class="project-actions"><a href="https://mlbsupply.id/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Live Demo</a><button class="btn btn-outline btn-sm" data-i18n="proj-case-study">Case Study →</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-grid">
+        <div class="project-image"><img src="mrsomet-preview.png" alt="Mrsomet Barbershop Website" width="600" height="400" loading="lazy"><div class="live-badge"><span class="live-dot"></span> Live</div></div>
+        <div class="project-info">
+          <div class="project-meta"><span class="badge badge-accent">Service Business</span><span class="badge badge-green">Real Project</span></div>
+          <h3 data-i18n="proj-4-title">Mrsomet Barbershop</h3><div class="project-role">Frontend Developer</div>
+          <p data-i18n="proj-4-desc">Modern, mobile-first barbershop website — designed to boost branding and make it easy for customers to find and book services.</p>
+          <div class="project-tech"><span class="tech-badge">React</span><span class="tech-badge">Tailwind CSS</span><span class="tech-badge">Vercel</span></div>
+          <div class="project-highlights"><div class="project-highlight"><h4 data-i18n="proj-h-challenge">Challenge</h4><p data-i18n="proj-4-c">Barbershop needed a modern website for boosting branding</p></div><div class="project-highlight"><h4 data-i18n="proj-h-solution">Solution</h4><p data-i18n="proj-4-s">Sleek, mobile-first website with intuitive booking flow</p></div><div class="project-highlight"><h4 data-i18n="proj-h-result">Result</h4><p data-i18n="proj-4-r">Brand image improved, online bookings increased</p></div></div>
+          <div class="project-actions"><a href="https://mrsomet.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg> Live Demo</a><button class="btn btn-outline btn-sm" data-i18n="proj-case-study">Case Study →</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" aria-labelledby="testimonials-heading" style="background:rgba(15,15,15,0.02);">
+  <div class="container">
+    <span class="section-label reveal" data-i18n="testimonials-label">Testimonials</span>
+    <h2 id="testimonials-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;margin-bottom:48px;" data-i18n="testimonials-h2">What Our Clients Say</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card featured reveal">
+        <div class="testimonial-quote">"</div><div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-text" data-i18n="test-1-text">The process was fast, the results were impressive, and the price was affordable. Our website looks more professional and customers trust us more.</p>
+        <div class="testimonial-author"><div class="testimonial-avatar"><img src="themafia-logo.jpg" alt="The Mafia Barbershop" width="48" height="48" loading="lazy"></div><div><div class="testimonial-name" data-i18n="test-1-name">Pak Devi Kurniawan</div><div class="testimonial-role" data-i18n="test-1-role">Owner, The Mafia Barbershop — Surabaya</div><div class="testimonial-project" data-i18n="test-1-project">Project: The Mafia Barbershop Website</div></div></div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div><div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-text" data-i18n="test-2-text">Our store website can now be accessed from anywhere. Online ordering is easier and our customers are happy.</p>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#dbeafe;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><div><div class="testimonial-name" data-i18n="test-2-name">Owner, MLB Supply</div><div class="testimonial-role" data-i18n="test-2-role">Supply Store — Sidoarjo</div><div class="testimonial-project" data-i18n="test-2-project">Project: MLB Supply Website</div></div></div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">"</div><div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-text" data-i18n="test-3-text">The cashier system simplifies our daily operations. Very helpful and easy for the entire team to use.</p>
+        <div class="testimonial-author"><div class="testimonial-avatar" style="background:#dcfce7;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="18"/><line x1="15" y1="22" x2="15" y2="18"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/></svg></div><div><div class="testimonial-name" data-i18n="test-3-name">Manager, UMKM Wonosunyo</div><div class="testimonial-role" data-i18n="test-3-role">MSME — Sidoarjo</div><div class="testimonial-project" data-i18n="test-3-project">Project: UMKM Wonosunyo System</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="trust-section" aria-label="Trust metrics">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item reveal"><div class="trust-num">15<span class="accent">+</span></div><div class="trust-label" data-i18n="trust-1">Projects Completed</div></div>
+      <div class="trust-item reveal reveal-delay-1"><div class="trust-num">10<span class="accent">+</span></div><div class="trust-label" data-i18n="trust-2">Happy Clients</div></div>
+      <div class="trust-item reveal reveal-delay-2"><div class="trust-num">4.9<span class="accent">/5</span></div><div class="trust-label" data-i18n="trust-3">Average Rating</div></div>
+      <div class="trust-item reveal reveal-delay-3"><div class="trust-num">&lt;24<span class="accent">h</span></div><div class="trust-label" data-i18n="trust-4">Response Time</div></div>
+      <div class="trust-item reveal reveal-delay-4"><div class="trust-num">3<span class="accent">+</span></div><div class="trust-label" data-i18n="trust-5">Years Experience</div></div>
+    </div>
+  </div>
+</section>
+<section id="faq" class="section" aria-labelledby="faq-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label reveal" style="justify-content:center;" data-i18n="faq-label">FAQ</span>
+      <h2 id="faq-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;margin:0 auto;" data-i18n="faq-h2">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q1">How long does it take to build a website?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a1">It depends on project complexity. Landing page: 3-5 business days. Company profile: 1-2 weeks. Web applications like dashboards or management systems: 2-4 weeks. The exact timeline will be communicated upfront after discovery.</div></div></div>
+      <div class="faq-item reveal reveal-delay-1"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q2">Does it include hosting and domain?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a2">Standard deployment includes deployment to Vercel or Netlify (free). If you want a custom domain (.com, .id, etc.), I'll help with the setup process. Domain costs are covered by the client (around $7-15/year).</div></div></div>
+      <div class="faq-item reveal reveal-delay-2"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q3">Are revisions included?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a3">Yes, all projects include revisions until you're satisfied. Minor revisions (colors, text, spacing) are unlimited. Major revisions (feature/structure changes) will be communicated beforehand if there's additional impact.</div></div></div>
+      <div class="faq-item reveal reveal-delay-3"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q4">What's the payment process?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a4">50% deposit upfront before work begins, remaining 50% after the website is complete and you approve the results. Payment via bank transfer, e-wallet, or as agreed.</div></div></div>
+      <div class="faq-item reveal reveal-delay-4"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q5">Can I get a consultation before committing?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a5">Absolutely! Free consultation with no commitment. We can discuss via WhatsApp, Google Meet, or meet in person in Sidoarjo/Surabaya. I'll help analyze your needs and recommend the best solution.</div></div></div>
+      <div class="faq-item reveal reveal-delay-5"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q6">What technologies do you use?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a6">It depends on project needs. For websites and landing pages: React/Next.js + Tailwind CSS. For web applications: Laravel/Node.js + PostgreSQL/MySQL. All tech stacks will be recommended based on your project's complexity and budget.</div></div></div>
+      <div class="faq-item reveal reveal-delay-6"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q7">Is there a warranty?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a7">Yes, free bug fixing for 30 days after the website goes live. If any bugs or technical issues arise, I'll fix them at no extra cost. Post-warranty support is available at affordable rates.</div></div></div>
+      <div class="faq-item reveal reveal-delay-6"><button class="faq-question" aria-expanded="false"><span data-i18n="faq-q8">Can you work remotely?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer" role="region"><div class="faq-answer-inner" data-i18n="faq-a8">Yes! Communication via WhatsApp, Google Meet, or email. Progress updates are provided regularly. For clients in Sidoarjo/Surabaya, in-person meetings are also available for more detailed discussions.</div></div></div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+<section class="section" aria-labelledby="blog-heading">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-label reveal" style="justify-content:center;" data-i18n="blog-label">Blog &amp; Insights</span>
+      <h2 id="blog-heading" class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,48px);font-weight:800;max-width:600px;margin:0 auto;" data-i18n="blog-h2">Articles &amp; Tips on Web Development</h2>
+      <p class="reveal reveal-delay-2" style="font-size:16px;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.7;" data-i18n="blog-sub">Stories, tips, and experiences from the world of web development that I share.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal"><div class="blog-badge" data-i18n="blog-badge">Coming Soon</div><h3 data-i18n="blog-1-title">How to Choose the Right Tech Stack for Your Project</h3><p data-i18n="blog-1-desc">A practical guide to choosing the right technology — considerations like timeline, budget, and project scale.</p></div>
+      <div class="blog-card reveal reveal-delay-1"><div class="blog-badge" data-i18n="blog-badge">Coming Soon</div><h3 data-i18n="blog-2-title">Why Startup Websites Must Be Mobile-First</h3><p data-i18n="blog-2-desc">Data and strategies behind the mobile-first approach in building websites for modern startups.</p></div>
+      <div class="blog-card reveal reveal-delay-2"><div class="blog-badge" data-i18n="blog-badge">Coming Soon</div><h3 data-i18n="blog-3-title">From Idea to Launch: An Effective Development Process</h3><p data-i18n="blog-3-desc">How I turn an idea into a digital product ready for real users.</p></div>
+    </div>
+  </div>
+</section>
+<section class="cta-section" aria-label="Call to action">
+  <div class="cta-content reveal">
+    <h2 data-i18n="cta-h2">Ready to Start Your Digital Project?</h2>
+    <p data-i18n="cta-sub">Let's discuss your needs. Free consultation, no commitment. From idea to deployment — I'll help make it happen.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I%20want%20to%20consult%20about%20a%20website%20project" class="btn btn-primary" target="_blank" rel="noopener"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span data-i18n="cta-wa">Chat via WhatsApp</span></a>
+      <a href="#projects" class="btn btn-white" data-i18n="cta-work">View My Work</a>
+      <a href="mailto:nadhif@example.com" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3);"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg> <span data-i18n="cta-email">Send Email</span></a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="font-size:24px;">Nadhif<span>.</span>dev</a>
+        <p data-i18n="footer-brand">Full Stack Web Developer. Building modern digital products that make a real impact for businesses and startups.</p>
+        <div class="footer-social">
+          <a href="https://github.com/nadhif" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="https://linkedin.com/in/nadhif" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://instagram.com/nadhif.dev" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://fiverr.com/nadhif" target="_blank" rel="noopener" aria-label="Fiverr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.471 14.016c-1.043 0-1.749-.474-2.132-1.435h6.38c.168.978.23 1.716.23 2.214 0 3.32-2.724 5.76-6.48 5.76-3.754 0-6.48-2.44-6.48-5.76 0-3.32 2.726-5.76 6.48-5.76 1.14 0 2.22.27 3.06.72l1.5-1.5c-1.2-.72-2.76-1.2-4.56-1.2-6.96 0-12 4.68-12 9.24h3.06c0-2.94 3.36-6.24 8.94-6.24 1.8 0 3.24.36 4.2 1.08l-1.5 1.5c-.54-.36-1.44-.6-2.52-.6z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4 data-i18n="footer-nav-title">Navigation</h4><a href="#about" data-i18n="nav-about">About</a><a href="#skills" data-i18n="nav-skills">Skills</a><a href="#services" data-i18n="nav-services">Services</a><a href="#projects" data-i18n="nav-projects">Projects</a><a href="#process" data-i18n="nav-process">Process</a><a href="#faq" data-i18n="nav-faq">FAQ</a></div>
+      <div class="footer-col"><h4 data-i18n="footer-contact-title">Contact</h4><a href="https://wa.me/628975054804" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:nadhif@example.com">Email</a><a href="https://github.com/nadhif" target="_blank" rel="noopener">GitHub</a><a href="https://linkedin.com/in/nadhif" target="_blank" rel="noopener">LinkedIn</a></div>
+      <div class="footer-col"><h4 data-i18n="footer-connect-title">Connect</h4><a href="https://instagram.com/nadhif.dev" target="_blank" rel="noopener">Instagram</a><a href="https://fiverr.com/nadhif" target="_blank" rel="noopener">Fiverr</a><a href="https://github.com/nadhif" target="_blank" rel="noopener" data-i18n="footer-github">GitHub Profile</a><a href="#" data-i18n="footer-cv">Download CV</a></div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Nadhif.dev · Full Stack Web Developer · Sidoarjo, Indonesia. All rights reserved.</div>
+  </div>
+</footer>
+<div id="imageModal" class="modal-overlay" role="dialog" aria-label="Image viewer">
+  <div class="backdrop" onclick="closeModal()"></div>
+  <button class="modal-btn modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+  <button class="modal-btn modal-prev" onclick="prevModal()" aria-label="Previous image">‹</button>
+  <div class="modal-content"><img id="modalImage" src="" alt="Project screenshot"></div>
+  <button class="modal-btn modal-next" onclick="nextModal()" aria-label="Next image">›</button>
+</div>
 <script>
-  // Slider
-  let index = 0;
-  function showSlide() {
-    document.getElementById("slider-wono").style.transform = `translateX(-${index * 100}%)`;
-  }
-  function nextSlide() { index = (index + 1) % 3; showSlide(); }
-  function prevSlide() { index = (index - 1 + 3) % 3; showSlide(); }
+(function(){
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Modal
-  let modalImages = [], modalIndex = 0;
-  function openModal(src, images) {
-    modalImages = images;
-    modalIndex = images.indexOf(src);
-    document.getElementById("modalImage").src = src;
-    const m = document.getElementById("imageModal");
-    m.style.display = "flex";
-    updateModalBtns();
+  // Navbar scroll
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Mobile menu
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const closeBtn = document.querySelector('.mobile-menu-close');
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
   }
-  function nextModal() {
+  window.closeMobileMenu = closeMobileMenu;
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.contains('open');
+    if (isOpen) { closeMobileMenu(); } else {
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMobileMenu);
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+  document.querySelectorAll('.mobile-menu .lang-toggle').forEach(btn => {
+    btn.addEventListener('click', () => { toggleLang(); });
+  });
+
+  // Active section tracking
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  function updateActiveLink() {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      if (window.scrollY >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  }
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
+
+  // FAQ Accordion
+  document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item.active').forEach(i => i.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+      btn.setAttribute('aria-expanded', !isActive);
+    });
+  });
+
+  // Image Modal
+  let modalImages = [], modalIndex = 0;
+  window.openModal = function(src, images) {
+    modalImages = images || [src];
+    modalIndex = modalImages.indexOf(src);
+    if (modalIndex === -1) modalIndex = 0;
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+    document.getElementById('imageModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    updateModalBtns();
+  };
+  window.nextModal = function() {
     if (modalImages.length <= 1) return;
     modalIndex = (modalIndex + 1) % modalImages.length;
-    document.getElementById("modalImage").src = modalImages[modalIndex];
-  }
-  function prevModal() {
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+  };
+  window.prevModal = function() {
     if (modalImages.length <= 1) return;
     modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
-    document.getElementById("modalImage").src = modalImages[modalIndex];
-  }
+    document.getElementById('modalImage').src = modalImages[modalIndex];
+  };
+  window.closeModal = function() {
+    document.getElementById('imageModal').classList.remove('active');
+    document.body.style.overflow = '';
+  };
   function updateModalBtns() {
+    const btns = document.querySelectorAll('#imageModal .modal-btn');
     const show = modalImages.length > 1;
-    document.querySelectorAll("#imageModal button")[0].style.opacity = show ? "1" : "0";
-    document.querySelectorAll("#imageModal button")[1].style.opacity = show ? "1" : "0";
+    btns[1].style.opacity = show ? '1' : '0';
+    btns[1].style.pointerEvents = show ? 'auto' : 'none';
+    btns[2].style.opacity = show ? '1' : '0';
+    btns[2].style.pointerEvents = show ? 'auto' : 'none';
   }
-  function closeModal() { document.getElementById("imageModal").style.display = "none"; }
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeModal();
-    if (e.key === "ArrowRight") nextModal();
-    if (e.key === "ArrowLeft") prevModal();
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('imageModal').classList.contains('active')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight') nextModal();
+    if (e.key === 'ArrowLeft') prevModal();
   });
-</script>
 
+  // Make project images clickable
+  document.querySelectorAll('.project-image img').forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => openModal(img.src, [img.src]));
+  });
+
+  // Language Toggle
+  const idTranslations = {
+    'nav-about': 'Tentang',
+    'nav-skills': 'Keahlian',
+    'nav-services': 'Layanan',
+    'nav-process': 'Proses',
+    'nav-projects': 'Proyek',
+    'nav-faq': 'FAQ',
+    'nav-cta': 'Hubungi Saya',
+    'hero-badge-1': 'Tersedia untuk proyek',
+    'hero-badge-2': 'Sidoarjo, Indonesia',
+    'hero-h1': 'Saya Membangun <span class="accent">Aplikasi Web Modern</span> yang Mendorong Pertumbuhan Bisnis',
+    'hero-sub': 'Full Stack Developer yang mengkhususkan diri dalam React, Next.js, Laravel, dan Node.js. Saya membantu bisnis dan startup mengubah ide menjadi produk digital yang performa dan skalabel — dari konsep hingga deployment.',
+    'hero-btn-work': 'Lihat Karya Saya',
+    'hero-btn-connect': 'Mari Terhubung',
+    'hero-btn-cv': 'Unduh CV',
+    'hero-stat-1': 'Proyek Selesai',
+    'hero-stat-2': 'Tahun Pengalaman',
+    'hero-stat-3': 'Desain Responsif',
+    'hero-stat-4': 'Skor Lighthouse',
+    'about-label': 'Tentang Saya',
+    'about-h2': 'Developer yang passionate membangun produk digital yang memberikan dampak nyata',
+    'about-text-1': 'Saya <strong>Nadhif Ahmad</strong>, Full Stack Web Developer yang berbasis di Sidoarjo, Jawa Timur. Saya mengkhususkan diri dalam membangun web application modern — dari landing page yang konversi tinggi hingga full-stack systems yang kompleks.',
+    'about-text-2': 'Passion saya ada di antara clean code dan intuitive design. Saya percaya setiap produk digital tidak hanya harus berfungsi dengan baik, tetapi juga memberikan pengalaman pengguna yang luar biasa.',
+    'about-journey': 'Perjalanan Saya',
+    'skills-label': 'Keahlian Teknis',
+    'skills-h2': 'Tech Stack yang Saya Kuasai',
+    'skills-sub': 'Berikut teknologi yang saya gunakan untuk membangun produk digital modern dan performa tinggi.',
+    'services-label': 'Layanan',
+    'services-h2': 'Solusi Digital yang Bisa Saya Bantu',
+    'services-sub': 'Dari landing page sederhana hingga web application kompleks — saya bantu wujudkan ide Anda menjadi produk digital yang nyata.',
+    'svc-landing': '<div class="service-icon" style="background:#dbeafe;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div><h3>Landing Page</h3><p>Halaman tunggal yang dirancang untuk konversi — menarik pengunjung menjadi pelanggan Anda.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Desain responsif &amp; modern</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> SEO optimized</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Integrasi WhatsApp</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Loading cepat</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20a%20landing%20page" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'svc-company': '<div class="service-icon" style="background:#dcfce7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="9" y1="22" x2="9" y2="18"/><line x1="15" y1="22" x2="15" y2="18"/><line x1="9" y1="6" x2="9" y2="6.01"/><line x1="15" y1="6" x2="15" y2="6.01"/><line x1="9" y1="10" x2="9" y2="10.01"/><line x1="15" y1="10" x2="15" y2="10.01"/><line x1="9" y1="14" x2="9" y2="14.01"/><line x1="15" y1="14" x2="15" y2="14.01"/></svg></div><h3>Company Profile</h3><p>Website multi-halaman profesional untuk membangun kredibilitas dan citra bisnis Anda.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Website multi-halaman</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Galeri &amp; portofolio</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Form kontak</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Section tim</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20a%20company%20profile" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'svc-dashboard': '<div class="service-icon" style="background:#fef3c7;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></div><h3>Dashboard Admin</h3><p>Panel administrasi custom dengan autentikasi, CRUD, dan visualisasi data.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Autentikasi &amp; akses berbasis role</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Operasi CRUD</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Chart &amp; analytics</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Desain responsif</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20a%20dashboard%20admin" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'svc-booking': '<div class="service-icon" style="background:#f3e8ff;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg></div><h3>Sistem Booking</h3><p>Sistem booking dan penjadwalan dengan notifikasi untuk bisnis berbasis layanan.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Integrasi kalender</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Ketersediaan real-time</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Notifikasi Email &amp; WhatsApp</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Integrasi pembayaran</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20a%20booking%20system" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'svc-inventory': '<div class="service-icon" style="background:#e0e7ff;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div><h3>Manajemen Inventori</h3><p>Sistem manajemen inventori dengan tracking stok, laporan, dan multi-user access.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Tracking stok real-time</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Laporan &amp; analytics</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Akses multi-user</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Dukungan barcode</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20an%20inventory%20system" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'svc-custom': '<div class="service-icon" style="background:#fce7f3;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#db2777" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg></div><h3>Web Application Custom</h3><p>Solusi full-stack yang dibangun sesuai kebutuhan spesifik bisnis Anda.</p><div class="service-features"><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Pengembangan full-stack</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Integrasi API</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Desain database</div><div class="service-feature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg> Deployment cloud</div></div><a href="https://wa.me/628975054804?text=Hello%20Nadhif,%20I\'d%20like%20a%20custom%20web%20application" class="btn btn-outline btn-sm" target="_blank" rel="noopener">Diskusi Proyek →</a>',
+    'process-label': 'Cara Kerja',
+    'process-h2': 'Proses Kerja yang Terstruktur',
+    'process-sub': 'Setiap project mengikuti alur kerja yang terbukti menghasilkan produk berkualitas tinggi.',
+    'process-1-h3': 'Discovery',
+    'process-1': 'Memahami kebutuhan, goals, dan target audience Anda',
+    'process-2-h3': 'Perencanaan',
+    'process-2': 'Arsitektur, tech stack selection, dan project roadmap',
+    'process-3-h3': 'Desain UI/UX',
+    'process-3': 'Wireframes, mockups, dan interactive prototypes',
+    'process-4-h3': 'Pengembangan',
+    'process-4': 'Clean code dengan best practices &amp; version control',
+    'process-5-h3': 'Pengujian',
+    'process-5': 'QA, performance optimization, cross-browser testing',
+    'process-6-h3': 'Peluncuran',
+    'process-6': 'Deployment, monitoring, dan ongoing support',
+    'projects-h2': 'Project yang Sudah Saya Kerjakan',
+    'projects-btn': 'Diskusi Proyek →',
+    'proj-h-challenge': 'Tantangan',
+    'proj-h-solution': 'Solusi',
+    'proj-h-result': 'Hasil',
+    'proj-case-study': 'Studi Kasus →',
+    'proj-1-title': 'The Mafia Barbershop',
+    'proj-1-desc': 'Website premium untuk barbershop dengan desain bold, booking system intuitif, dan domain custom — meningkatkan brand awareness dan customer experience secara signifikan.',
+    'proj-1-c': 'Barbershop premium butuh website sekelas brand internasional',
+    'proj-1-s': 'Desain bold dengan booking flow intuitif &amp; gallery interaktif',
+    'proj-1-r': 'Custom domain live, booking meningkat, brand awareness naik',
+    'proj-2-title': 'UMKM Wonosunyo',
+    'proj-2-desc': 'Sistem manajemen lengkap untuk UMKM — mencakup dashboard admin, sistem kasir, halaman pembeli, dan manajemen produk. Solusi all-in-one untuk operasional bisnis harian.',
+    'proj-2-c': 'UMKM butuh sistem terpadu untuk kasir, inventori, dan pelanggan',
+    'proj-2-s': 'Dashboard admin lengkap + sistem kasir + halaman pelanggan',
+    'proj-2-r': 'Operasional lebih efisien, semua fitur aktif dipakai harian',
+    'proj-3-title': 'MLB Supply',
+    'proj-3-desc': 'Katalog produk online yang responsif dan modern — memudahkan pelanggan melihat produk dan melakukan pemesanan langsung melalui WhatsApp.',
+    'proj-3-c': 'Toko offline butuh presence online untuk jangkau lebih banyak customer',
+    'proj-3-s': 'Product catalog responsif dengan integrasi pesanan WhatsApp',
+    'proj-3-r': 'Customer reach meningkat, order via online jadi lebih mudah',
+    'proj-4-title': 'Mrsomet Barbershop',
+    'proj-4-desc': 'Website barbershop modern dan mobile-first — dirancang untuk meningkatkan branding dan memudahkan pelanggan menemukan serta booking layanan.',
+    'proj-4-c': 'Barbershop butuh website modern untuk boosting branding',
+    'proj-4-s': 'Website sleek, mobile-first dengan booking flow intuitif',
+    'proj-4-r': 'Brand image meningkat, booking via online jadi lebih banyak',
+    'testimonials-label': 'Testimoni',
+    'testimonials-h2': 'Apa Kata Mereka yang Sudah Bekerja Sama?',
+    'test-1-text': 'Prosesnya cepat, hasilnya memuaskan dan harganya terjangkau. Website kami jadi kelihatan lebih profesional dan pelanggan lebih percaya.',
+    'test-1-name': 'Pak Devi Kurniawan',
+    'test-1-role': 'Owner, The Mafia Barbershop — Surabaya',
+    'test-1-project': 'Proyek: Website The Mafia Barbershop',
+    'test-2-text': 'Website toko kami sekarang bisa diakses dari mana saja. Order via online jadi lebih mudah dan customer kami puas.',
+    'test-2-name': 'Owner, MLB Supply',
+    'test-2-role': 'Toko Supply — Sidoarjo',
+    'test-2-project': 'Proyek: Website MLB Supply',
+    'test-3-text': 'Sistem kasirnya memudahkan operasional harian kami. Sangat membantu dan mudah digunakan oleh seluruh tim.',
+    'test-3-name': 'Manager, UMKM Wonosunyo',
+    'test-3-role': 'UMKM — Sidoarjo',
+    'test-3-project': 'Proyek: Sistem UMKM Wonosunyo',
+    'trust-1': 'Proyek Selesai',
+    'trust-2': 'Klien Puas',
+    'trust-3': 'Rating Rata-rata',
+    'trust-4': 'Waktu Respons',
+    'trust-5': 'Tahun Pengalaman',
+    'faq-label': 'FAQ',
+    'faq-h2': 'Pertanyaan yang Sering Ditanyakan',
+    'faq-q1': 'Berapa lama pengerjaan website?',
+    'faq-a1': 'Tergantung kompleksitas project. Landing page: 3-5 hari kerja. Company profile: 1-2 minggu. Web application seperti dashboard atau sistem manajemen: 2-4 minggu. Timeline pasti akan dikomunikasikan di awal setelah discovery.',
+    'faq-q2': 'Apakah termasuk hosting dan domain?',
+    'faq-a2': 'Untuk standard deployment, sudah termasuk deploy ke Vercel atau Netlify (gratis). Jika Anda ingin domain custom (.com, .id, dll), saya bantu proses setup-nya. Biaya domain ditanggung klien (sekitar Rp100-200rb/tahun).',
+    'faq-q3': 'Apakah bisa revisi?',
+    'faq-a3': 'Ya, semua project termasuk revisi hingga Anda puas. Revisi minor (warna, teks, spacing) tanpa batas. Revisi major (perubahan fitur/struktur) akan dikomunikasikan terlebih dahulu jika ada impact tambahan.',
+    'faq-q4': 'Bagaimana sistem pembayaran?',
+    'faq-a4': 'DP 50% di awal sebelum pengerjaan dimulai, sisanya 50% setelah website selesai dan Anda menyetujui hasilnya. Pembayaran bisa via transfer bank, e-wallet (GoPay, OVO, Dana), atau sesuai kesepakatan.',
+    'faq-q5': 'Apakah bisa konsultasi dulu sebelum deal?',
+    'faq-a5': 'Tentu! Konsultasi gratis tanpa komitmen. Kita bisa diskusi via WhatsApp, Google Meet, atau tatap langsung di Sidoarjo/Surabaya. Saya akan bantu analisis kebutuhan Anda dan merekomendasikan solusi terbaik.',
+    'faq-q6': 'Teknologi apa yang digunakan?',
+    'faq-a6': 'Tergantung kebutuhan project. Untuk website dan landing page: React/Next.js + Tailwind CSS. Untuk web application: Laravel/Node.js + PostgreSQL/MySQL. Semua tech stack akan direkomendasikan berdasarkan kompleksitas dan budget project Anda.',
+    'faq-q7': 'Apakah ada garansi?',
+    'faq-a7': 'Ya, garansi fixing gratis selama 30 hari setelah website live. Jika ada bug atau masalah teknis yang muncul, saya akan perbaiki tanpa biaya tambahan. Support setelah garansi tersedia dengan harga terjangkau.',
+    'faq-q8': 'Bisa kerja remote?',
+    'faq-a8': 'Bisa! Komunikasi via WhatsApp, Google Meet, atau email. Progress akan di-update secara berkala. Untuk klien di Sidoarjo/Surabaya, bisa juga tatap langsung untuk diskusi lebih detail.',
+    'blog-label': 'Blog &amp; Insights',
+    'blog-h2': 'Artikel &amp; Tips Seputar Web Development',
+    'blog-sub': 'Cerita, tips, dan pengalaman seputar dunia web development yang saya bagikan.',
+    'blog-badge': 'Segera Hadir',
+    'blog-1-title': 'Cara Memilih Tech Stack yang Tepat untuk Project Anda',
+    'blog-1-desc': 'Panduan praktis dalam memilih teknologi yang tepat — pertimbangan seperti timeline, budget, dan skala project.',
+    'blog-2-title': 'Kenapa Website Startup Harus Mobile-First',
+    'blog-2-desc': 'Data dan strategi di balik pendekatan mobile-first dalam membangun website untuk startup modern.',
+    'blog-3-title': 'From Idea to Launch: Proses Development yang Efektif',
+    'blog-3-desc': 'Bagaimana saya membawa sebuah ide menjadi produk digital yang siap digunakan oleh pengguna nyata.',
+    'cta-h2': 'Siap Memulai Proyek Digital Anda?',
+    'cta-sub': 'Mari diskusi kebutuhan Anda. Konsultasi gratis, tanpa komitmen. Dari ide hingga deployment — saya bantu wujudkan.',
+    'cta-wa': 'Chat via WhatsApp',
+    'cta-work': 'Lihat Karya Saya',
+    'cta-email': 'Kirim Email',
+    'footer-brand': 'Full Stack Web Developer. Membangun produk digital modern yang memberikan dampak nyata untuk bisnis dan startup.',
+    'footer-nav-title': 'Navigasi',
+    'footer-contact-title': 'Kontak',
+    'footer-connect-title': 'Terhubung',
+    'footer-github': 'Profil GitHub',
+    'footer-cv': 'Unduh CV'
+  };
+
+  const enContent = {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    enContent[key] = el.innerHTML;
+  });
+
+  const enHtmlContent = {};
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    enHtmlContent[key] = el.innerHTML;
+  });
+
+  let currentLang = localStorage.getItem('lang') || 'en';
+
+  function applyLang() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (currentLang === 'id' && idTranslations[key]) {
+        el.innerHTML = idTranslations[key];
+      } else if (enContent[key]) {
+        el.innerHTML = enContent[key];
+      }
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (currentLang === 'id' && idTranslations[key]) {
+        el.innerHTML = idTranslations[key];
+      } else if (enHtmlContent[key]) {
+        el.innerHTML = enHtmlContent[key];
+      }
+    });
+    document.querySelectorAll('.lang-label').forEach(el => {
+      el.textContent = currentLang === 'en' ? 'EN' : 'ID';
+    });
+  }
+
+  window.toggleLang = function() {
+    currentLang = currentLang === 'en' ? 'id' : 'en';
+    localStorage.setItem('lang', currentLang);
+    applyLang();
+  };
+
+  applyLang();
+})();
+</script>
 </body>
 </html>
