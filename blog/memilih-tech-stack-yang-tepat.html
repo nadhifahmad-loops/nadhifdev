@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cara Memilih Tech Stack yang Tepat untuk Proyek Anda | Nadhif Dev</title>
+<meta name="description" content="Panduan praktis memilih teknologi web yang tepat berdasarkan kebutuhan, timeline, dan budget — dari kacamata full stack developer yang menangani proyek nyata.">
+<meta name="author" content="Nadhif Ahmad">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nadhif.dev/blog/memilih-tech-stack-yang-tepat.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cara Memilih Tech Stack yang Tepat untuk Proyek Anda">
+<meta property="og:description" content="Panduan praktis memilih teknologi web yang tepat berdasarkan kebutuhan, timeline, dan budget.">
+<meta property="og:url" content="https://nadhif.dev/blog/memilih-tech-stack-yang-tepat.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f0f0f;--paper:#f8f5f0;--accent:#e85d26;--accent-hover:#cc4a1a;--accent2:#1a6bff;--muted:#6b6b6b;--card:#ffffff;--border:#e8e5e0;--success:#15803d;--radius:20px;--radius-sm:12px;--radius-pill:100px;--max-w:1200px;--transition:0.3s cubic-bezier(0.4,0,0.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;line-height:1.15;letter-spacing:-0.02em}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul,ol{list-style:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.35}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+.container-narrow{max-width:760px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all var(--transition);border:none;white-space:nowrap}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,38,0.25)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid #ccc}
+.btn-outline:hover{border-color:var(--ink);background:#fff}
+.btn-sm{padding:9px 18px;font-size:13px}
+.btn svg{flex-shrink:0}
+.section-label{font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--accent);display:inline-block}
+
+/* Top bar */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(248,245,240,0.9);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1.5px solid var(--border)}
+.topbar .container{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;gap:16px}
+.nav-logo{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--ink);flex-shrink:0}
+.nav-logo span{color:var(--accent)}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--muted);transition:color var(--transition)}
+.back-link:hover{color:var(--ink)}
+.back-link svg{flex-shrink:0}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+
+/* Footer */
+.blog-footer{padding:40px 0;border-top:1px solid var(--border);margin-top:80px}
+.blog-footer .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.blog-footer p{font-size:13px;color:var(--muted)}
+.blog-footer-links{display:flex;gap:20px}
+.blog-footer-links a{font-size:13px;color:var(--muted);font-weight:600;transition:color var(--transition)}
+.blog-footer-links a:hover{color:var(--accent)}
+
+/* Category tag */
+.tag{display:inline-flex;align-items:center;gap:6px;background:rgba(232,93,38,0.08);color:var(--accent);border-radius:var(--radius-pill);padding:5px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;width:fit-content}
+.tag-blue{background:rgba(26,107,255,0.08);color:var(--accent2)}
+.tag-green{background:rgba(21,128,61,0.08);color:var(--success)}
+
+/* Listing hero */
+.blog-hero{padding:64px 0 48px;text-align:center}
+.blog-hero h1{font-size:clamp(30px,4.5vw,50px);font-weight:800;max-width:640px;margin:0 auto}
+.blog-hero p{font-size:16px;color:var(--muted);max-width:520px;margin:16px auto 0;line-height:1.7}
+
+/* Listing grid (reuses blog-card look from main site) */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:100px}
+.blog-card{background:#fff;border-radius:var(--radius);border:1.5px solid var(--border);padding:32px;display:flex;flex-direction:column;transition:all var(--transition);position:relative}
+.blog-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.blog-card-cover{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.blog-card .tag{margin-bottom:16px}
+.blog-card h2,.blog-card h3{font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.blog-card p{font-size:14px;color:var(--muted);line-height:1.7;flex-grow:1}
+.blog-card-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.blog-card-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+.blog-card-cta{display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-size:13px;font-weight:700;color:var(--accent);transition:gap var(--transition)}
+.blog-card:hover .blog-card-cta{gap:10px}
+
+/* Article header */
+.article-hero{padding:56px 0 0}
+.article-meta-top{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted);margin:24px 0 20px;flex-wrap:wrap}
+.article-meta-top .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+.article-author{display:flex;align-items:center;gap:10px;margin:28px 0 8px}
+.author-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;font-family:'Bricolage Grotesque',sans-serif;flex-shrink:0}
+.author-name{font-weight:700;font-size:14px}
+.author-role{font-size:12px;color:var(--muted)}
+.article-title{font-size:clamp(28px,4.5vw,46px);font-weight:800;max-width:820px}
+
+/* Cover banner */
+.article-cover{margin:36px 0 0;border-radius:var(--radius);height:260px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.article-cover::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");opacity:0.5;mix-blend-mode:overlay}
+.article-cover svg{position:relative;z-index:1}
+.cover-1{background:linear-gradient(135deg,#e85d26 0%,#cc4a1a 100%)}
+.cover-2{background:linear-gradient(135deg,#1a6bff 0%,#0f3f9e 100%)}
+.cover-3{background:linear-gradient(135deg,#15803d 0%,#0d5c2c 100%)}
+
+/* Article prose */
+.article-body{padding:44px 0 0}
+.prose{font-size:17px;line-height:1.85;color:#2a2a2a}
+.prose > p{margin-bottom:22px}
+.prose h2{font-size:clamp(22px,3vw,28px);font-weight:800;margin:48px 0 16px;color:var(--ink)}
+.prose h3{font-size:19px;font-weight:700;margin:32px 0 12px;color:var(--ink)}
+.prose ul,.prose ol{margin:0 0 22px 4px;padding-left:22px;list-style:disc}
+.prose ol{list-style:decimal}
+.prose li{margin-bottom:10px;line-height:1.75}
+.prose li::marker{color:var(--accent);font-weight:700}
+.prose strong{font-weight:700;color:var(--ink)}
+.prose blockquote{border-left:3px solid var(--accent);padding:6px 26px;margin:32px 0;font-style:italic;color:var(--muted);font-size:19px;line-height:1.6}
+.prose .table-wrap{overflow-x:auto;margin:28px 0}
+.prose table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+.prose th,.prose td{border:1px solid var(--border);padding:12px 16px;text-align:left;vertical-align:top}
+.prose th{background:#efece5;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.04em}
+.prose tr:nth-child(even) td{background:#fbfaf7}
+.checklist{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 24px;margin:28px 0}
+.checklist li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+.checklist li:last-child{border-bottom:none}
+.checklist li svg{flex-shrink:0;margin-top:2px;color:var(--success)}
+.step-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:24px 28px;margin:0 0 20px;display:flex;gap:20px;align-items:flex-start}
+.step-num{font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:var(--accent);flex-shrink:0;line-height:1}
+.step-card h3{margin:0 0 8px}
+.step-card p{margin:0;color:var(--muted);font-size:15px;line-height:1.7}
+
+/* Author box + related */
+.author-box{display:flex;gap:18px;align-items:flex-start;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:28px;margin:56px 0}
+.author-box .author-avatar{width:56px;height:56px;font-size:20px}
+.author-box h4{font-size:16px;margin-bottom:6px}
+.author-box p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.article-cta{background:var(--ink);border-radius:var(--radius);padding:48px;text-align:center;margin:56px 0}
+.article-cta h3{color:#fff;font-size:clamp(22px,3vw,30px);font-weight:800;margin-bottom:12px}
+.article-cta p{color:rgba(255,255,255,0.55);margin-bottom:28px;font-size:15px}
+.article-cta-buttons{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.related-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin:56px 0 20px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.related-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:20px;transition:all var(--transition)}
+.related-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.06)}
+.related-card .tag{margin-bottom:10px;font-size:11px;padding:4px 10px}
+.related-card h4{font-size:15px;font-weight:700;line-height:1.4}
+
+@media(max-width:860px){
+.blog-grid{grid-template-columns:repeat(2,1fr)}
+.related-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+.blog-grid{grid-template-columns:1fr}
+.article-cover{height:180px}
+.author-box{flex-direction:column}
+.article-cta{padding:36px 24px}
+.step-card{flex-direction:column;gap:8px}
+.topbar-actions .btn-sm span{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <a href="../index.html" class="nav-logo">Nadhif<span>.</span>dev</a>
+    <a href="../index.html#blog" class="back-link"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Kembali ke Beranda</a>
+    <div class="topbar-actions">
+      <a href="https://wa.me/628975054804?text=Hello%20Nadhif%2C%20saya%20ingin%20diskusi%20proyek" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> <span>Chat WhatsApp</span></a>
+    </div>
+  </div>
+</div>
+
+<main>
+<section class="article-hero">
+  <div class="container-narrow">
+    <span class="tag">Tips Proyek</span>
+    <h1 class="article-title">Cara Memilih Tech Stack yang Tepat untuk Proyek Anda</h1>
+    <div class="article-meta-top">
+      <span>10 Juli 2026</span><span class="dot"></span><span>6 menit baca</span><span class="dot"></span><span>Web Development</span>
+    </div>
+    <div class="article-author">
+      <div class="author-avatar">N</div>
+      <div><div class="author-name">Nadhif Ahmad</div><div class="author-role">Full Stack Web Developer</div></div>
+    </div>
+    <div class="article-cover cover-1">
+      <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+    </div>
+  </div>
+</section>
+
+<section class="article-body">
+  <div class="container-narrow prose">
+
+<p>Pertanyaan pertama yang hampir selalu muncul dari calon klien: <strong>"pakai teknologi apa yang paling bagus buat website saya?"</strong> Jawaban jujurnya — tidak ada stack yang paling bagus secara universal. Yang ada hanyalah stack yang paling <em>pas</em> untuk kebutuhan, timeline, dan budget proyek tertentu. Setelah menangani belasan proyek dengan karakter yang berbeda-beda, saya belajar bahwa kesalahan paling mahal biasanya bukan soal bug di kode, tapi soal salah pilih fondasi di awal.</p>
+
+<h2>Kenapa Pertanyaannya Perlu Dibalik</h2>
+<p>Developer yang baik memilih tools sesuai masalah yang mau diselesaikan, bukan sebaliknya. Sebelum bicara React atau Laravel, saya selalu mulai dari pertanyaan yang lebih mendasar: website ini fungsinya apa, siapa yang pakai, dan seberapa kompleks logika bisnis di baliknya? Baru dari situ teknologi mengikuti.</p>
+
+<h2>Tiga Faktor yang Menentukan Pilihan Stack</h2>
+
+<h3>1. Jenis dan Kompleksitas Proyek</h3>
+<p>Landing page atau company profile yang isinya lebih banyak konten statis dan form kontak biasanya paling efisien dibangun dengan <strong>React/Next.js + Tailwind CSS</strong> — ringan, cepat di-deploy, dan ramah SEO. Sebaliknya, sistem yang punya banyak logika bisnis — dashboard admin, kasir, manajemen inventori — butuh backend yang strukturnya matang, biasanya <strong>Laravel</strong> atau <strong>Node.js</strong> dipasangkan dengan database relasional seperti PostgreSQL atau MySQL, karena nanti akan banyak urusan autentikasi, role-based access, dan relasi data.</p>
+
+<h3>2. Timeline dan Budget</h3>
+<p>Kalau timeline mepet, pilih stack yang ekosistemnya sudah matang dan library siap pakainya banyak, supaya tidak menghabiskan waktu membangun ulang hal-hal dasar. Soal budget, saya selalu mengajak klien melihat total biaya jangka panjang — bukan cuma biaya development di awal, tapi juga biaya hosting, maintenance, dan seberapa mudah nanti dikembangkan lagi kalau bisnisnya tumbuh.</p>
+
+<h3>3. Siapa yang Akan Merawat Sistem Ini Nanti</h3>
+<p>Ini faktor yang paling sering dilewatkan. Kalau ke depannya sistem mungkin ditangani tim internal atau developer lain, sebaiknya hindari teknologi yang terlalu niche — pilih stack yang komunitasnya besar dan gampang dicari penggantinya. Website yang bagus tapi tidak ada yang bisa merawat setelah developer awal pergi, ujung-ujungnya jadi beban.</p>
+
+<h2>Kebutuhan vs Rekomendasi Stack</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Kebutuhan Anda</th><th>Rekomendasi Stack</th><th>Alasan</th></tr></thead>
+<tbody>
+<tr><td>Landing page / company profile</td><td>Next.js + Tailwind CSS</td><td>Build cepat, ringan, SEO kuat</td></tr>
+<tr><td>Dashboard admin / sistem internal</td><td>Laravel + MySQL/PostgreSQL</td><td>Struktur MVC matang, auth &amp; role gampang diatur</td></tr>
+<tr><td>Sistem booking / reservasi</td><td>Node.js + PostgreSQL</td><td>Mudah menangani notifikasi &amp; ketersediaan real-time</td></tr>
+<tr><td>Manajemen inventori multi-user</td><td>Laravel + MySQL</td><td>Relasi data kompleks, reporting kuat</td></tr>
+<tr><td>Aplikasi custom skala besar</td><td>Next.js (frontend) + Node.js/Laravel (API)</td><td>Scalable, tim bisa berkembang belakangan</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Kesalahan yang Sering Saya Temui</h2>
+<ul>
+<li>Memilih teknologi karena "lagi hype", bukan karena benar-benar cocok dengan kebutuhan.</li>
+<li>Overengineering — memakai arsitektur rumit untuk kebutuhan yang sebenarnya sederhana.</li>
+<li>Meremehkan kebutuhan maintenance jangka panjang demi kecepatan rilis di awal.</li>
+</ul>
+
+<blockquote>Stack terbaik bukan yang paling canggih, tapi yang paling cocok dengan masalah, tim, dan jangka waktu proyek Anda.</blockquote>
+
+<h2>Kesimpulan</h2>
+<p>Setiap proyek yang saya kerjakan selalu dimulai dari tahap <em>discovery</em> — memahami tujuan bisnis dan target pengguna dulu, baru merekomendasikan teknologi yang paling masuk akal. Kalau Anda sedang bingung menentukan arah teknis untuk proyek berikutnya, obrolan singkat biasanya sudah cukup untuk memetakan opsi yang paling realistis.</p>
+
+  </div>
+</section>
+
+<div class="container-narrow">
+  <div class="article-cta">
+    <h3>Masih Bingung Pilih Teknologi yang Tepat?</h3>
+    <p>Ceritakan kebutuhan proyek Anda, saya bantu rekomendasikan stack yang paling masuk akal dari sisi biaya dan jangka panjang.</p>
+    <div class="article-cta-buttons">
+      <a href="https://wa.me/628975054804?text=Hello%20Nadhif%2C%20saya%20ingin%20konsultasi%20tech%20stack%20untuk%20proyek%20saya" target="_blank" rel="noopener" class="btn btn-primary">Konsultasi Gratis via WhatsApp</a>
+      <a href="../index.html#services" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.3);">Lihat Layanan</a>
+    </div>
+  </div>
+
+  <div class="related-title">Artikel Lainnya</div>
+  <div class="related-grid">
+    <a class="related-card" href="mobile-first-untuk-startup.html"><span class="tag tag-blue">Web Development</span><h4>Kenapa Website Startup Harus Mobile-First</h4></a>
+    <a class="related-card" href="dari-ide-ke-peluncuran.html"><span class="tag tag-green">Cerita Proses</span><h4>Dari Ide ke Peluncuran: Proses Development yang Efektif</h4></a>
+  </div>
+</div>
+
+</main>
+
+<footer class="blog-footer">
+  <div class="container">
+    <p>&copy; 2026 Nadhif.dev · Full Stack Web Developer · Sidoarjo, Indonesia.</p>
+    <div class="blog-footer-links">
+      <a href="../index.html">Beranda</a>
+      <a href="index.html">Semua Artikel</a>
+      <a href="https://wa.me/628975054804" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
