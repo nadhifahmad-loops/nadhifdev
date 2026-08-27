@@ -114,8 +114,119 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.add('hidden');
         }
       });
+
+      // Reset show more when filter changes
+      resetShowMore();
     });
   });
+
+  // ============ SHOW MORE / LESS ============
+  const showMoreBtn = document.getElementById('showMoreBtn');
+  const VISIBLE_COUNT = 4;
+  let isExpanded = false;
+
+  function applyShowMore() {
+    const visibleCards = Array.from(portfolioCards).filter(c => !c.classList.contains('hidden'));
+    visibleCards.forEach((card, i) => {
+      if (!isExpanded && i >= VISIBLE_COUNT) {
+        card.classList.add('hidden-by-more');
+      } else {
+        card.classList.remove('hidden-by-more');
+      }
+    });
+
+    if (isExpanded) {
+      showMoreBtn.innerHTML = 'Tampilkan Lebih Sedikit <i class="fa-solid fa-chevron-up"></i>';
+    } else {
+      showMoreBtn.innerHTML = 'Tampilkan Semua <i class="fa-solid fa-chevron-down"></i>';
+    }
+
+    // Hide button if not enough cards
+    if (visibleCards.length <= VISIBLE_COUNT) {
+      showMoreBtn.style.display = 'none';
+    } else {
+      showMoreBtn.style.display = '';
+    }
+  }
+
+  function resetShowMore() {
+    isExpanded = false;
+    applyShowMore();
+  }
+
+  if (showMoreBtn) {
+    showMoreBtn.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      applyShowMore();
+    });
+  }
+
+  // Initial apply
+  applyShowMore();
+
+  // ============ TESTIMONIAL CAROUSEL ============
+  const testimonials = [
+    {
+      text: '"Website-nya keren banget, cocok sama konsep barbershop. Pelanggan sekarang bisa booking lewat online."',
+      name: 'The Mafia Barbershop',
+      role: 'Barbershop, Surabaya',
+      avatar: 'images/themafia-logo.jpg',
+      rating: '5.0'
+    },
+    {
+      text: '"Prosesnya cepat dan hasilnya sesuai permintaan. Sangat recommended untuk UMKM!"',
+      name: 'MLB Supply',
+      role: 'Fashion Retail',
+      avatar: 'images/mlb-logo.jpg',
+      rating: '5.0'
+    }
+  ];
+
+  let currentTestimonial = 0;
+  const testimonialText = document.getElementById('testimonialText');
+  const testimonialName = document.getElementById('testimonialName');
+  const testimonialRole = document.getElementById('testimonialRole');
+  const testimonialAvatar = document.getElementById('testimonialAvatar');
+  const prevBtn = document.getElementById('prevTestimonial');
+  const nextBtn = document.getElementById('nextTestimonial');
+
+  function updateTestimonial(index) {
+    const t = testimonials[index];
+    testimonialText.textContent = t.text;
+    testimonialName.textContent = t.name;
+    testimonialRole.textContent = t.role;
+    if (t.avatar) {
+      testimonialAvatar.src = t.avatar;
+      testimonialAvatar.alt = t.name;
+      testimonialAvatar.style.display = '';
+    } else {
+      testimonialAvatar.style.display = 'none';
+    }
+  }
+
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+      updateTestimonial(currentTestimonial);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      updateTestimonial(currentTestimonial);
+    });
+  }
+
+  // ============ PORTFOLIO TOGGLE DESC ============
+  window.toggleDesc = function(btn) {
+    const wrap = btn.parentElement;
+    const desc = wrap.querySelector('.portfolio-desc');
+    desc.classList.toggle('expanded');
+    if (desc.classList.contains('expanded')) {
+      btn.textContent = 'Tutup';
+    } else {
+      btn.textContent = 'Selengkapnya';
+    }
+  };
 
   // ============ FAQ ACCORDION ============
   const faqItems = document.querySelectorAll('.faq-item');
@@ -188,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.forEach(link => {
           link.style.color = '';
           if (link.getAttribute('href') === `#${sectionId}`) {
-            link.style.color = 'var(--accent)';
+            link.style.color = 'var(--accent-container)';
           }
         });
       }
