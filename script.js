@@ -86,6 +86,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ============ FLOATING WA CHAT BUBBLE ============
+  const floatingWA = document.getElementById('floatingWA');
+  const waChatBubble = document.getElementById('waChatBubble');
+
+  if (floatingWA && waChatBubble) {
+    floatingWA.addEventListener('click', (e) => {
+      e.preventDefault();
+      waChatBubble.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!floatingWA.contains(e.target) && !waChatBubble.contains(e.target)) {
+        waChatBubble.classList.remove('active');
+      }
+    });
+
+    // Icon morph cycling
+    const morphIcons = floatingWA.querySelectorAll('.wa-morph-icon');
+    const shapes = ['shape-circle', 'shape-square'];
+    let currentIcon = 0;
+
+    if (morphIcons.length > 0) {
+      morphIcons[0].classList.add('active');
+      floatingWA.classList.add(shapes[0]);
+
+      setInterval(() => {
+        morphIcons[currentIcon].classList.remove('active');
+        floatingWA.classList.remove(shapes[currentIcon]);
+
+        currentIcon = (currentIcon + 1) % morphIcons.length;
+
+        morphIcons[currentIcon].classList.add('active');
+        floatingWA.classList.add(shapes[currentIcon]);
+      }, 4500);
+    }
+  }
+
   // ============ PORTFOLIO FILTERS ============
   const filterBtns = document.querySelectorAll('.filter-btn');
   const portfolioCards = document.querySelectorAll('.portfolio-card');
