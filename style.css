@@ -978,6 +978,13 @@ section {
   letter-spacing: -0.03em;
 }
 
+.pricing-from {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
 .pricing-desc {
   color: var(--text-secondary);
   font-size: 0.9rem;
